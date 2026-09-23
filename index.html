@@ -159,6 +159,37 @@
       box-shadow: 0 0 0 3px rgba(79, 118, 89, 0.12);
     }
 
+    .name-input-wrapper {
+      position: relative;
+    }
+
+    .name-input-wrapper input {
+      padding-right: 45px;
+    }
+
+    .clear-name-button {
+      position: absolute;
+      top: 50%;
+      right: 9px;
+      width: 30px;
+      height: 30px;
+      min-height: 0;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: transparent;
+      color: #8b8f8a;
+      font-size: 21px;
+      line-height: 1;
+      cursor: pointer;
+      transform: translateY(-50%);
+    }
+
+    .clear-name-button:hover {
+      background: #f0f2ee;
+      color: var(--green-dark);
+    }
+
     .form-area {
       margin-top: 21px;
     }
@@ -482,14 +513,37 @@
       text-align: center;
     }
 
+    .history-details {
+      margin-top: 0;
+      border: 1px solid var(--green-border);
+      border-radius: 12px;
+      background: #fff;
+      overflow: hidden;
+    }
+
+    .history-details > summary {
+      padding: 13px 14px;
+      background: #eef3ee;
+      color: var(--green-dark);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .history-details-content {
+      padding: 10px;
+    }
+
     .history {
-      overflow-x: auto;
+      max-height: 285px;
+      overflow: auto;
+      border: 1px solid var(--border);
       border-radius: 10px;
+      overscroll-behavior: contain;
     }
 
     table {
-      width: 100%;
-      min-width: 790px;
+      width: max-content;
+      min-width: 100%;
       border-collapse: collapse;
       background: #fff;
       font-size: 12px;
@@ -497,20 +551,112 @@
 
     th,
     td {
-      padding: 9px 8px;
+      padding: 8px 6px;
       border: 1px solid var(--border);
       text-align: left;
       white-space: nowrap;
     }
 
     th {
-      background: #eef3ee;
+      position: sticky;
+      top: 0;
+      z-index: 3;
+      background: #e7efe8;
       color: #505850;
       font-weight: 700;
     }
 
     td {
       color: #515650;
+      background: #fff;
+    }
+
+    tbody tr:nth-child(even) td {
+      background: #f4f8f4;
+    }
+
+    th:first-child,
+    td:first-child {
+      position: sticky;
+      left: 0;
+      width: 112px;
+      min-width: 112px;
+      max-width: 112px;
+      white-space: normal;
+      overflow-wrap: anywhere;
+      word-break: normal;
+      vertical-align: middle;
+      z-index: 2;
+      box-shadow: 2px 0 5px rgba(49, 81, 58, 0.08);
+    }
+
+    th:first-child {
+      z-index: 5;
+      background: #dfeadf;
+    }
+
+    tbody tr:nth-child(odd) td:first-child {
+      background: #fff;
+    }
+
+    tbody tr:nth-child(even) td:first-child {
+      background: #f4f8f4;
+    }
+
+    /* Kolom riwayat dibuat serapat isi agar nyaman di layar HP. */
+    th:nth-child(2),
+    td:nth-child(2) {
+      width: 68px;
+      min-width: 68px;
+      max-width: 68px;
+      white-space: nowrap;
+    }
+
+    th:nth-child(3),
+    td:nth-child(3) {
+      width: 145px;
+      min-width: 145px;
+      max-width: 145px;
+      white-space: normal;
+      line-height: 1.45;
+    }
+
+    th:nth-child(4),
+    td:nth-child(4) {
+      width: 65px;
+      min-width: 65px;
+      max-width: 65px;
+      text-align: center;
+    }
+
+    th:nth-child(5),
+    td:nth-child(5),
+    th:nth-child(6),
+    td:nth-child(6) {
+      width: 38px;
+      min-width: 38px;
+      max-width: 38px;
+      text-align: center;
+    }
+
+    th:nth-child(7),
+    td:nth-child(7),
+    th:nth-child(8),
+    td:nth-child(8) {
+      width: 58px;
+      min-width: 58px;
+      max-width: 58px;
+      text-align: center;
+    }
+
+    th:nth-child(9),
+    td:nth-child(9) {
+      width: 38px;
+      min-width: 38px;
+      max-width: 38px;
+      padding-left: 4px;
+      padding-right: 4px;
+      text-align: center;
     }
 
     .delete-btn {
@@ -650,12 +796,21 @@
   <section>
     <div class="field">
       <label for="nama">Nama Santriwati</label>
-      <input
-        id="nama"
-        type="text"
-        autocomplete="name"
-        placeholder="Masukkan nama santriwati"
-      >
+      <div class="name-input-wrapper">
+        <input
+          id="nama"
+          type="text"
+          autocomplete="name"
+          placeholder="Masukkan nama santriwati"
+        >
+        <button
+          id="hapusNamaBtn"
+          class="clear-name-button"
+          type="button"
+          aria-label="Hapus nama"
+          title="Hapus nama"
+        >×</button>
+      </div>
     </div>
 
     <div class="field">
@@ -723,17 +878,21 @@
 
   <!-- RIWAYAT -->
   <section class="history-section">
-    <h2 class="history-heading">Riwayat</h2>
+    <details class="history-details">
+      <summary>Lihat Riwayat 👀</summary>
 
-    <div id="history" class="history"></div>
+      <div class="history-details-content">
+        <div id="history" class="history"></div>
 
-    <button
-      id="hapusSemuaBtn"
-      class="clear-history"
-      type="button"
-    >
-      Hapus Semua Riwayat
-    </button>
+        <button
+          id="hapusSemuaBtn"
+          class="clear-history"
+          type="button"
+        >
+          Hapus Semua Riwayat
+        </button>
+      </div>
+    </details>
   </section>
 
   <!-- SIGNATURE -->
@@ -1027,11 +1186,11 @@
             options: [
               {
                 value: "30",
-                label: "Juz 30"
+                label: "Juz 30 (Belum Genap)"
               },
               {
                 value: "lebih",
-                label: "Lebih dari 1 Juz"
+                label: "1 Juz atau Lebih"
               }
             ]
           })}
@@ -1564,8 +1723,8 @@
         ujian: "Ujian Bulanan",
         materi:
           materi === "30"
-            ? "Juz 30"
-            : "Lebih dari 1 Juz",
+            ? "Juz 30 (Belum Genap)"
+            : "1 Juz atau Lebih",
         kesalahan,
         halaman,
         jumlahJuz,
@@ -1991,7 +2150,6 @@
               <th>Juz</th>
               <th>Nilai</th>
               <th>Bobot</th>
-              <th>Waktu</th>
               <th></th>
             </tr>
           </thead>
@@ -2000,6 +2158,17 @@
       `;
 
             for (const item of riwayat) {
+        const ujianText =
+          item.ujian === "Ujian Bulanan"
+            ? "Bulanan"
+            : item.ujian === "Ujian Semester"
+              ? "Semester"
+              : (item.ujian || "-");
+
+        const materiText = escapeHtml(item.materi || "-")
+          .replace(" — Selain Juz 30", "<br>Selain Juz 30")
+          .replace(" - Selain Juz 30", "<br>Selain Juz 30");
+
         const bobotText =
           Number.isFinite(
             Number(item.bobot)
@@ -2016,17 +2185,11 @@
             </td>
 
             <td>
-              ${escapeHtml(
-                item.ujian ||
-                "-"
-              )}
+              ${escapeHtml(ujianText)}
             </td>
 
             <td>
-              ${escapeHtml(
-                item.materi ||
-                "-"
-              )}
+              ${materiText}
             </td>
 
             <td>
@@ -2068,13 +2231,6 @@
 
             <td>
               ${bobotText}
-            </td>
-
-            <td>
-              ${escapeHtml(
-                item.waktu ||
-                "-"
-              )}
             </td>
 
             <td>
@@ -2307,6 +2463,16 @@
         );
       }
     );
+
+    document
+      .getElementById("hapusNamaBtn")
+      .addEventListener(
+        "click",
+        () => {
+          els.nama.value = "";
+          els.nama.focus();
+        }
+      );
 
     els.nama.addEventListener(
       "keydown",
