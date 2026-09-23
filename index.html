@@ -190,6 +190,21 @@
       color: var(--green-dark);
     }
 
+    .field-error input,
+    .field-error select {
+      border-color: #c98f87;
+      background: #fff9f7;
+      box-shadow: 0 0 0 3px rgba(201, 143, 135, 0.10);
+    }
+
+    .field-error-message {
+      margin-top: 6px;
+      color: #a76760;
+      font-size: 12.5px;
+      font-weight: 600;
+      line-height: 1.45;
+    }
+
     .form-area {
       margin-top: 21px;
     }
@@ -242,6 +257,13 @@
       box-shadow: 0 8px 18px rgba(61, 96, 71, 0.25);
     }
 
+
+    .calculate-button:disabled {
+      opacity: 0.48;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
     .calculate-button:active {
       transform: translateY(1px);
     }
@@ -829,7 +851,7 @@
   <!-- TOMBOL -->
   <button
     id="hitungBtn"
-    class="calculate-button hidden"
+    class="calculate-button"
     type="button"
   >
     Hitung Nilainya
@@ -1116,6 +1138,17 @@
       els.hitungBtn.classList.toggle("hidden", !show);
     }
 
+    function updateCalculateButtonState() {
+      const fields = [
+        els.nama,
+        els.jenis,
+        ...els.dynamicForm.querySelectorAll("input, select")
+      ];
+
+      const hasAnyValue = fields.some(field => field && field.value.trim() !== "");
+      els.hitungBtn.disabled = !hasAnyValue;
+    }
+
     function tampilkanHasil({
       labelNilai,
       nilai,
@@ -1167,7 +1200,9 @@
       if (!jenis) {
         els.dynamicForm.innerHTML = "";
         els.dynamicForm.classList.add("hidden");
-        showCalculateButton(false);
+        showCalculateButton(true);
+      attachInlineValidation();
+        attachInlineValidation();
         return;
       }
 
@@ -1486,31 +1521,145 @@
       ==========================================
     */
 
-    function validateCommon(
-      nama,
-      kesalahan
-    ) {
-      if (!nama) {
-        alert("Nama santriwati belum diisi.");
-        els.nama.focus();
+    function clearFieldError(id) {
+      const element = document.getElementById(id);
+      if (!element) return;
+
+      const field = element.closest(".field");
+      if (!field) return;
+
+      field.classList.remove("field-error");
+      field.querySelector(".field-error-message")?.remove();
+      element.removeAttribute("aria-invalid");
+    }
+
+    function setFieldError(id, message) {
+      const element = document.getElementById(id);
+      if (!element) return;
+
+      const field = element.closest(".field");
+      if (!field) return;
+
+      clearFieldError(id);
+      field.classList.add("field-error");
+      element.setAttribute("aria-invalid", "true");
+
+      const error = document.createElement("div");
+      error.className = "field-error-message";
+      error.textContent = message;
+      field.appendChild(error);
+    }
+
+    function validateField(id, showError = true) {
+      const element = document.getElementById(id);
+      if (!element) return true;
+
+      const raw = element.value.trim();
+      let message = "";
+
+      if (id === "nama" && !raw) {
+        message = "Namanya belum diisi nih..";
+      } else if (id === "jenis" && !raw) {
+        message = "Mau hitung ujian yang mana dulu?";
+      } else if (id === "materiBulanan" && !raw) {
+        message = "Materinya belum dipilih.";
+      } else if (id === "semesterGenap" && !raw) {
+        message = "Materinya sudah genap 1 juz atau belum?";
+      } else if (id === "materiSemester" && !raw) {
+        message = "Materinya belum dipilih.";
+      } else if (id === "kesalahan") {
+        if (!raw) message = "Jumlah kesalahan nggak bisa kosong.";
+        else if (!Number.isFinite(Number(raw)) || Number(raw) < 0)
+          message = "Jumlah kesalahan nggak bisa kurang dari 0.";
+      } else if (id === "halaman") {
+        if (!raw) message = "Jumlah halamannya belum diisi.";
+        else if (!Number.isFinite(Number(raw)) || Number(raw) <= 0)
+          message = "Jumlah halaman harus lebih dari 0.";
+      } else if (id === "jumlahJuz") {
+        if (!raw) message = "Jumlah juznya belum diisi.";
+        else {
+          const value = Number(raw);
+          if (!Number.isInteger(value) || value < 1 || value > 5)
+            message = "Jumlah juznya ga bisa lebih dari 5.";
+        }
+      }
+
+      if (message) {
+        if (showError) setFieldError(id, message);
         return false;
       }
 
-      if (
-        !Number.isFinite(kesalahan) ||
-        kesalahan < 0
-      ) {
-        alert(
-          "Jumlah kesalahan belum diisi dengan benar."
-        );
+      clearFieldError(id);
+      return true;
+    }
 
-        document
-          .getElementById("kesalahan")
-          ?.focus();
+    function requiredFieldIds() {
+      const ids = ["nama", "jenis"];
+      const jenis = els.jenis.value;
 
-        return false;
+      if (jenis === "bulanan") {
+        ids.push("materiBulanan");
+        const materi = document.getElementById("materiBulanan")?.value;
+        if (materi) {
+          ids.push("kesalahan");
+          ids.push(materi === "30" ? "halaman" : "jumlahJuz");
+        }
+      } else if (jenis === "semester") {
+        ids.push("semesterGenap");
+        const kondisi = document.getElementById("semesterGenap")?.value;
+        if (kondisi === "genap") {
+          ids.push("kesalahan");
+        } else if (kondisi === "belum") {
+          ids.push("materiSemester");
+          const materi = document.getElementById("materiSemester")?.value;
+          if (materi) ids.push("kesalahan", "halaman");
+        }
       }
 
+      return ids;
+    }
+
+    function validateForm(showErrors = true) {
+      const ids = requiredFieldIds();
+      let valid = true;
+      let firstInvalid = null;
+
+      for (const id of ids) {
+        if (!validateField(id, showErrors)) {
+          valid = false;
+          firstInvalid ||= document.getElementById(id);
+        }
+      }
+
+      return { valid, firstInvalid };
+    }
+
+    function attachInlineValidation() {
+      const ids = requiredFieldIds();
+
+      for (const id of ids) {
+        const element = document.getElementById(id);
+        if (!element || element.dataset.validationBound === "1") continue;
+        element.dataset.validationBound = "1";
+
+        element.addEventListener("input", () => {
+          if (element.closest(".field")?.classList.contains("field-error")) {
+            validateField(id, true);
+          }
+          updateCalculateButtonState();
+        });
+
+        element.addEventListener("change", () => {
+          if (element.closest(".field")?.classList.contains("field-error")) {
+            validateField(id, true);
+          }
+          updateCalculateButtonState();
+          window.setTimeout(attachInlineValidation, 0);
+        });
+      }
+    }
+
+    function validateCommon() {
       return true;
     }
 
@@ -1963,8 +2112,18 @@
     */
 
     function hitung() {
-      const jenis =
-        els.jenis.value;
+      const validation = validateForm(true);
+
+      if (!validation.valid) {
+        validation.firstInvalid?.focus({ preventScroll: true });
+        validation.firstInvalid?.scrollIntoView({
+          behavior: "smooth",
+          block: "center"
+        });
+        return;
+      }
+
+      const jenis = els.jenis.value;
 
       if (jenis === "bulanan") {
         hitungBulanan();
@@ -1973,14 +2132,7 @@
 
       if (jenis === "semester") {
         hitungSemester();
-        return;
       }
-
-      alert(
-        "Silakan pilih jenis ujian terlebih dahulu."
-      );
-
-      els.jenis.focus();
     }
 
     /*
@@ -2433,8 +2585,19 @@
 
     els.jenis.addEventListener(
       "change",
-      renderForm
+      () => {
+        renderForm();
+        updateCalculateButtonState();
+        window.setTimeout(attachInlineValidation, 0);
+      }
     );
+
+    els.dynamicForm.addEventListener("change", () => {
+      updateCalculateButtonState();
+      window.setTimeout(attachInlineValidation, 0);
+    });
+
+    els.dynamicForm.addEventListener("input", updateCalculateButtonState);
 
     els.hitungBtn.addEventListener(
       "click",
@@ -2470,9 +2633,20 @@
         "click",
         () => {
           els.nama.value = "";
+          if (els.nama.closest(".field")?.classList.contains("field-error")) {
+            validateField("nama", true);
+          }
+          updateCalculateButtonState();
           els.nama.focus();
         }
       );
+
+    els.nama.addEventListener("input", () => {
+      if (els.nama.closest(".field")?.classList.contains("field-error")) {
+        validateField("nama", true);
+      }
+      updateCalculateButtonState();
+    });
 
     els.nama.addEventListener(
       "keydown",
@@ -2496,6 +2670,8 @@
         migrasiRiwayatLama();
     tampilkanRiwayat();
     mulaiPesanPenyemangat();
+    attachInlineValidation();
+    updateCalculateButtonState();
 
     /*
       ==========================================
