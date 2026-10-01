@@ -1,96 +1,78 @@
-<!DOCTYPE html><html lang="id">
+<!DOCTYPE html>
+<html lang="id">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#4f7659">
+  <meta name="theme-color" content="#416F91">
   <meta name="description" content="Kalkulator Nilai Ujian Hifzh untuk ujian bulanan dan semester.">
-  <title>Kalkulator Nilai Ujian Hifzh</title>  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap');
+  <title>Kalkulator Nilai Ujian Hifzh</title>
+
+  <style>
+    @font-face {
+      font-family: "SF Arabic";
+      src: url("./SFArabic-Regular(opsz28).ttf") format("truetype");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
 
     :root {
-      --green: #4f7659;
-      --green-dark: #3d6047;
-      --green-deep: #31513a;
-      --green-soft: #edf4ee;
-      --green-border: #d3e1d5;
-      --cream: #fffdf9;
-      --bg: #f4f3ef;
-      --text: #30332f;
-      --muted: #777b76;
-      --border: #dedfd9;
-      --white: #ffffff;
-      --danger: #a55b5b;
-      --shadow: 0 10px 32px rgba(49, 81, 58, 0.09);
+      --blue: #6B9FC4;
+      --blue-dark: #416F91;
+      --blue-deep: #345D79;
+      --blue-soft: #EAF4FA;
+      --blue-border: #D3E5EF;
+      --bg: #F4F9FC;
+      --text: #34434E;
+      --muted: #7A8993;
+      --border: #D9E6ED;
+      --white: #FFFFFF;
 
-      --font-latin:
-        -apple-system,
-        BlinkMacSystemFont,
-        "SF Pro Display",
-        "SF Pro Text",
-        "Helvetica Neue",
-        "Segoe UI",
-        Arial,
-        sans-serif;
+      --error: #A86F69;
+      --error-bg: #FFF7F6;
+      --error-border: #E8C8C4;
 
-      --font-arabic:
-        "SF Arabic",
-        "San Francisco Arabic",
-        "Noto Sans Arabic",
-        "Segoe UI",
-        Arial,
-        sans-serif;
+      --shadow: 0 10px 32px rgba(65, 111, 145, .09);
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
-    html {
-      scroll-behavior: smooth;
+    html { scroll-behavior: smooth; }
+
+    html, body {
+      min-height: 100%;
     }
 
     body {
       margin: 0;
-      padding: 18px;
-      background:
-        radial-gradient(
-          circle at 10% 0%,
-          rgba(196, 215, 199, 0.38),
-          transparent 30%
-        ),
-        var(--bg);
+      padding: 0;
+      background: var(--bg);
       color: var(--text);
-      font-family: var(--font-latin);
+      font-family: "SF Arabic", sans-serif;
       line-height: 1.55;
       -webkit-font-smoothing: antialiased;
+      display: flex;
+      flex-direction: column;
     }
 
-    button,
-    input,
-    select {
-      font: inherit;
-    }
-
-    button {
-      -webkit-tap-highlight-color: transparent;
-    }
+    button, input, select { font: inherit; }
+    button { -webkit-tap-highlight-color: transparent; }
 
     .container {
       width: min(100%, 720px);
       margin: 0 auto;
+      padding: 28px 25px 40px;
+      box-sizing: border-box;
+      flex: 1 0 auto;
     }
 
     .app-card {
-      background: rgba(255, 255, 255, 0.97);
-      border: 1px solid rgba(222, 223, 217, 0.95);
-      border-radius: 20px;
-      padding: 25px;
-      box-shadow: var(--shadow);
+      background: transparent;
+      border: 0;
+      border-radius: 0;
+      padding: 0;
+      box-shadow: none;
     }
-
-    /* =========================
-       HEADER
-    ========================== */
 
     .header {
       text-align: center;
@@ -99,11 +81,11 @@
 
     h1 {
       margin: 0;
-      color: var(--green-deep);
+      color: var(--blue-deep);
       font-size: clamp(24px, 5vw, 29px);
       line-height: 1.25;
       font-weight: 700;
-      letter-spacing: -0.4px;
+      letter-spacing: -.4px;
     }
 
     .subtitle {
@@ -113,115 +95,70 @@
       font-weight: 400;
     }
 
-    /* =========================
-       FORM
-    ========================== */
-
-    .field {
-      margin-top: 17px;
-    }
-
-    .field:first-child {
-      margin-top: 0;
-    }
+    .field { margin-top: 17px; }
+    .field:first-child { margin-top: 0; }
 
     label {
       display: block;
       margin-bottom: 7px;
-      color: #3e433e;
+      color: #3E4F5B;
       font-size: 14px;
-      font-weight: 650;
+      font-weight: 600;
     }
 
-    input,
-    select {
+    input, select {
       width: 100%;
       min-height: 47px;
       padding: 10px 13px;
       border: 1px solid var(--border);
       border-radius: 11px;
-      background: var(--white);
+      background: #FBFDFF;
       color: var(--text);
       outline: none;
-      appearance: auto;
-      transition:
-        border-color 0.2s ease,
-        box-shadow 0.2s ease;
+      transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
     }
 
-    input::placeholder {
-      color: #a2a6a1;
+    input::placeholder { color: #A2AFB8; }
+
+    input:focus, select:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(107, 159, 196, .14);
     }
 
-    input:focus,
-    select:focus {
-      border-color: var(--green);
-      box-shadow: 0 0 0 3px rgba(79, 118, 89, 0.12);
-    }
+    .clear-name-wrap { position: relative; }
+    .clear-name-wrap input { padding-right: 42px; }
 
-    .name-input-wrapper {
-      position: relative;
-    }
-
-    .name-input-wrapper input {
-      padding-right: 45px;
-    }
-
-    .clear-name-button {
+    .clear-name {
       position: absolute;
-      top: 50%;
       right: 9px;
-      width: 30px;
-      height: 30px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 29px;
+      height: 29px;
       min-height: 0;
+      margin: 0;
       padding: 0;
       border: 0;
       border-radius: 50%;
       background: transparent;
-      color: #8b8f8a;
-      font-size: 21px;
-      line-height: 1;
+      color: #93A2AC;
       cursor: pointer;
-      transform: translateY(-50%);
+      font-size: 20px;
+      line-height: 1;
+      box-shadow: none;
     }
 
-    .clear-name-button:hover {
-      background: #f0f2ee;
-      color: var(--green-dark);
+    .clear-name:hover {
+      background: var(--blue-soft);
+      color: var(--blue-dark);
     }
 
-    .field-error input,
-    .field-error select {
-      border-color: #c98f87;
-      background: #fff9f7;
-      box-shadow: 0 0 0 3px rgba(201, 143, 135, 0.10);
-    }
-
-    .field-error-message {
-      margin-top: 6px;
-      color: #a76760;
-      font-size: 12.5px;
-      font-weight: 600;
-      line-height: 1.45;
-    }
-
-    .form-area {
-      margin-top: 21px;
-    }
-
-    .dynamic-form {
-      animation: formIn 0.25s ease;
-    }
+    .form-area { margin-top: 21px; }
+    .dynamic-form { animation: formIn .25s ease; }
 
     @keyframes formIn {
-      from {
-        opacity: 0;
-        transform: translateY(4px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .note {
@@ -230,9 +167,7 @@
       font-size: 12px;
     }
 
-    .hidden {
-      display: none !important;
-    }
+    .hidden { display: none !important; }
 
     .calculate-button {
       width: 100%;
@@ -241,60 +176,60 @@
       padding: 12px 18px;
       border: 0;
       border-radius: 12px;
-      background: var(--green);
+      background: var(--blue);
       color: #fff;
       font-weight: 700;
       cursor: pointer;
-      box-shadow: 0 6px 15px rgba(61, 96, 71, 0.2);
-      transition:
-        background 0.18s ease,
-        transform 0.15s ease,
-        box-shadow 0.18s ease;
+      box-shadow: 0 6px 15px rgba(65, 111, 145, .18);
+      transition: background .18s ease, transform .15s ease, box-shadow .18s ease, opacity .18s ease;
     }
-
-    .calculate-button:hover {
-      background: var(--green-dark);
-      box-shadow: 0 8px 18px rgba(61, 96, 71, 0.25);
-    }
-
 
     .calculate-button:disabled {
-      opacity: 0.48;
-      cursor: not-allowed;
-      transform: none;
+      cursor: default;
+      opacity: .45;
       box-shadow: none;
     }
-    .calculate-button:active {
+
+    .calculate-button:hover:not(:disabled) {
+      background: var(--blue-dark);
+      box-shadow: 0 8px 18px rgba(65, 111, 145, .23);
+    }
+
+    .calculate-button:active:not(:disabled) {
       transform: translateY(1px);
     }
 
-    /* =========================
-       HASIL
-    ========================== */
+    .input-error {
+      border-color: var(--error-border) !important;
+      background: var(--error-bg) !important;
+      box-shadow: 0 0 0 3px rgba(232, 200, 196, .12) !important;
+    }
+
+    .error-message {
+      margin-top: 6px;
+      color: var(--error);
+      font-size: 12px;
+      line-height: 1.5;
+      font-weight: 500;
+    }
 
     .result {
       margin-top: 28px;
       padding: 18px;
-      border: 1px solid var(--green-border);
+      border: 1px solid var(--blue-border);
       border-radius: 15px;
-      background: var(--green-soft);
-      animation: resultIn 0.3s ease;
+      background: var(--blue-soft);
+      animation: resultIn .3s ease;
     }
 
     @keyframes resultIn {
-      from {
-        opacity: 0;
-        transform: translateY(7px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(7px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .result-title {
       margin: 0 0 14px;
-      color: var(--green-dark);
+      color: var(--blue-dark);
       font-size: 17px;
       font-weight: 700;
     }
@@ -308,7 +243,7 @@
     .result-item {
       min-width: 0;
       padding: 15px;
-      border: 1px solid #dbe5dc;
+      border: 1px solid #D9E8F0;
       border-radius: 12px;
       background: #fff;
     }
@@ -323,37 +258,33 @@
 
     .result-item strong {
       display: block;
-      color: var(--green-deep);
+      color: var(--blue-deep);
       font-size: clamp(23px, 6vw, 29px);
       line-height: 1.2;
       font-weight: 700;
       overflow-wrap: anywhere;
     }
 
-    /* =========================
-       RUMUS
-    ========================== */
-
     details {
       margin-top: 14px;
       overflow: hidden;
-      border: 1px solid #dbe5dc;
+      border: 1px solid #D9E8F0;
       border-radius: 11px;
-      background: rgba(255, 255, 255, 0.88);
+      background: rgba(255,255,255,.88);
     }
 
     summary {
       padding: 12px 14px;
       cursor: pointer;
-      color: #475149;
+      color: #49616F;
       font-size: 13px;
-      font-weight: 650;
+      font-weight: 600;
       user-select: none;
     }
 
     .formula {
       padding: 0 14px 15px;
-      color: #4d534e;
+      color: #4C5D67;
       font-size: 13px;
       line-height: 1.8;
       overflow-wrap: anywhere;
@@ -361,165 +292,104 @@
 
     .formula-title {
       margin-top: 8px;
-      color: var(--green-dark);
+      color: var(--blue-dark);
       font-weight: 700;
     }
 
     .formula-result {
-      color: var(--green-deep);
+      color: var(--blue-deep);
       font-weight: 700;
     }
 
-    /* =========================
-   TEKS PENYEMANGAT
-========================= */
+    .encouragement {
+      position: relative;
+      min-height: 112px;
+      margin: 26px 2px 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
 
-.encouragement {
-  position: relative;
-  min-height: 112px;
-  margin: 26px 2px 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
+    .encouragement::before,
+    .encouragement::after {
+      position: absolute;
+      left: 18%;
+      right: 18%;
+      height: 1px;
+      content: "";
+      background: linear-gradient(
+        to right,
+        transparent,
+        #BFD5E2 18%,
+        #BFD5E2 82%,
+        transparent
+      );
+    }
 
-/* Ornamen atas dan bawah */
-.encouragement::before,
-.encouragement::after {
-  position: absolute;
-  left: 18%;
-  right: 18%;
-  height: 1px;
-  content: "";
-  background: linear-gradient(
-    to right,
-    transparent,
-    #c9d8cb 18%,
-    #c9d8cb 82%,
-    transparent
-  );
-}
+    .encouragement::before { top: 7px; }
+    .encouragement::after { bottom: 7px; }
 
-.encouragement::before {
-  top: 7px;
-}
+    .encouragement-inner::before,
+    .encouragement-inner::after {
+      position: absolute;
+      left: 50%;
+      width: 7px;
+      height: 7px;
+      content: "";
+      background: #6E9AB6;
+      transform: translateX(-50%) rotate(45deg);
+      border-radius: 1px;
+    }
 
-.encouragement::after {
-  bottom: 7px;
-}
+    .encouragement-inner::before { top: -2px; }
+    .encouragement-inner::after { bottom: -2px; }
 
-/* Ornamen kecil di tengah garis */
-.encouragement-inner::before,
-.encouragement-inner::after {
-  position: absolute;
-  left: 50%;
-  width: 7px;
-  height: 7px;
-  content: "";
-  background: #a9beaD;
-  transform: translateX(-50%) rotate(45deg);
-  border-radius: 1px;
-}
+    .encouragement-inner {
+      position: relative;
+      z-index: 1;
+      width: min(100%, 570px);
+      padding: 18px 22px;
+    }
 
-.encouragement-inner::before {
-  top: -2px;
-}
+    .encouragement-text {
+      display: block;
+      color: #587383;
+      font-size: 13.5px;
+      font-weight: 600;
+      line-height: 1.75;
+      opacity: 1;
+      transition: opacity .8s ease;
+      overflow-wrap: normal;
+      word-break: normal;
+    }
 
-.encouragement-inner::after {
-  bottom: -2px;
-}
+    .encouragement-text.fade-out { opacity: 0; }
+    .encouragement-text.fade-in { animation: encouragementIn .8s ease; }
 
-.encouragement-inner {
-  position: relative;
-  z-index: 1;
-  width: min(100%, 570px);
-  padding: 18px 22px;
-}
+    .encouragement-text.rtl {
+      direction: rtl;
+      font-family: "SF Arabic", sans-serif;
+    }
 
-/*
-  Teks dan emoji sekarang berada
-  dalam satu inline flow.
+    .encouragement-text.ltr {
+      direction: ltr;
+      font-family: "SF Arabic", sans-serif;
+    }
 
-  Jadi ketika teks menjadi 2 baris,
-  emoji tetap menyatu dengan kalimat.
-*/
-.encouragement-text {
-  display: block;
-  color: #607664;
-  font-size: 13.5px;
-  font-weight: 600;
-  line-height: 1.75;
-  opacity: 1;
-  transition: opacity 0.8s ease;
-  overflow-wrap: normal;
-  word-break: normal;
-}
+    .encouragement-emoji {
+      display: inline;
+      margin-inline-start: 4px;
+      font-family: "Segoe UI Emoji", "Apple Color Emoji", sans-serif;
+      font-style: normal;
+      font-weight: 500;
+      white-space: nowrap;
+    }
 
-.encouragement-text.fade-out {
-  opacity: 0;
-}
-
-.encouragement-text.fade-in {
-  animation: encouragementIn 0.8s ease;
-}
-
-.encouragement-text.rtl {
-  direction: rtl;
-  font-family:
-    "SF Arabic",
-    "San Francisco Arabic",
-    "Noto Sans Arabic",
-    "Segoe UI",
-    Arial,
-    sans-serif;
-}
-
-.encouragement-text.ltr {
-  direction: ltr;
-  font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "SF Pro Display",
-    "SF Pro Text",
-    "Helvetica Neue",
-    "Segoe UI",
-    Arial,
-    sans-serif;
-}
-
-/*
-  Emoji sengaja INLINE, bukan flex item.
-  Dengan begitu emoji ikut mengalir bersama
-  teks ketika kalimat turun ke baris berikutnya.
-*/
-.encouragement-emoji {
-  display: inline;
-  margin-inline-start: 4px;
-  font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI Emoji",
-    "Apple Color Emoji",
-    sans-serif;
-  font-style: normal;
-  font-weight: 500;
-  white-space: nowrap;
-}
-
-@keyframes encouragementIn {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-    /* =========================
-       RIWAYAT
-    ========================== */
+    @keyframes encouragementIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
 
     .history-section {
       margin-top: 30px;
@@ -529,53 +399,37 @@
 
     .history-heading {
       margin: 0 0 12px;
-      color: var(--green-dark);
+      color: var(--blue-dark);
       font-size: 17px;
       font-weight: 700;
       text-align: center;
     }
 
-    .history-details {
+    .history details {
       margin-top: 0;
-      border: 1px solid var(--green-border);
-      border-radius: 12px;
-      background: #fff;
-      overflow: hidden;
     }
 
-    .history-details > summary {
-      padding: 13px 14px;
-      background: #eef3ee;
-      color: var(--green-dark);
-      font-size: 14px;
-      font-weight: 700;
-    }
-
-    .history-details-content {
-      padding: 10px;
-    }
-
-    .history {
-      max-height: 285px;
+    .history-wrap {
       overflow: auto;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      overscroll-behavior: contain;
+      max-height: 280px;
+      border-top: 1px solid var(--border);
     }
 
     table {
-      width: max-content;
-      min-width: 100%;
-      border-collapse: collapse;
+      width: 100%;
+      min-width: 790px;
+      border-collapse: separate;
+      border-spacing: 0;
       background: #fff;
       font-size: 12px;
     }
 
-    th,
-    td {
-      padding: 8px 6px;
-      border: 1px solid var(--border);
+    th, td {
+      padding: 7px 6px;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
       text-align: left;
+      vertical-align: middle;
       white-space: nowrap;
     }
 
@@ -583,126 +437,76 @@
       position: sticky;
       top: 0;
       z-index: 3;
-      background: #e7efe8;
-      color: #505850;
+      background: #EAF4FA;
+      color: #49616F;
       font-weight: 700;
     }
 
     td {
-      color: #515650;
+      color: #52616A;
       background: #fff;
     }
 
-    tbody tr:nth-child(even) td {
-      background: #f4f8f4;
-    }
+    tbody tr:nth-child(even) td { background: #F8FCFE; }
 
     th:first-child,
     td:first-child {
       position: sticky;
       left: 0;
+      z-index: 2;
       width: 112px;
       min-width: 112px;
       max-width: 112px;
       white-space: normal;
       overflow-wrap: anywhere;
-      word-break: normal;
-      vertical-align: middle;
-      z-index: 2;
-      box-shadow: 2px 0 5px rgba(49, 81, 58, 0.08);
     }
 
     th:first-child {
-      z-index: 5;
-      background: #dfeadf;
+      z-index: 4;
+      background: #EAF4FA;
     }
 
-    tbody tr:nth-child(odd) td:first-child {
-      background: #fff;
-    }
+    tbody tr:nth-child(even) td:first-child { background: #F8FCFE; }
 
-    tbody tr:nth-child(even) td:first-child {
-      background: #f4f8f4;
-    }
-
-    /* Kolom riwayat dibuat serapat isi agar nyaman di layar HP. */
-    th:nth-child(2),
-    td:nth-child(2) {
-      width: 68px;
-      min-width: 68px;
-      max-width: 68px;
-      white-space: nowrap;
-    }
-
-    th:nth-child(3),
-    td:nth-child(3) {
+    th:nth-child(2), td:nth-child(2) { width: 58px; }
+    th:nth-child(3), td:nth-child(3) {
       width: 145px;
       min-width: 145px;
-      max-width: 145px;
       white-space: normal;
-      line-height: 1.45;
+      overflow-wrap: anywhere;
     }
-
-    th:nth-child(4),
-    td:nth-child(4) {
-      width: 65px;
-      min-width: 65px;
-      max-width: 65px;
+    th:nth-child(4), td:nth-child(4),
+    th:nth-child(5), td:nth-child(5),
+    th:nth-child(6), td:nth-child(6),
+    th:nth-child(7), td:nth-child(7),
+    th:nth-child(8), td:nth-child(8) {
+      width: 54px;
       text-align: center;
     }
-
-    th:nth-child(5),
-    td:nth-child(5),
-    th:nth-child(6),
-    td:nth-child(6) {
-      width: 38px;
-      min-width: 38px;
-      max-width: 38px;
-      text-align: center;
-    }
-
-    th:nth-child(7),
-    td:nth-child(7),
-    th:nth-child(8),
-    td:nth-child(8) {
-      width: 58px;
-      min-width: 58px;
-      max-width: 58px;
-      text-align: center;
-    }
-
-    th:nth-child(9),
-    td:nth-child(9) {
-      width: 38px;
-      min-width: 38px;
-      max-width: 38px;
-      padding-left: 4px;
-      padding-right: 4px;
-      text-align: center;
-    }
+    th:nth-child(9), td:nth-child(9) { width: 38px; text-align: center; }
 
     .delete-btn {
       width: auto;
-      min-width: 32px;
-      min-height: 30px;
+      min-width: 30px;
+      min-height: 29px;
       margin: 0;
-      padding: 4px 8px;
-      border: 1px solid #ddd;
+      padding: 3px 7px;
+      border: 1px solid #D9E2E8;
       border-radius: 7px;
-      background: #f7f7f5;
-      color: #777;
+      background: #F5F9FB;
+      color: #7A8993;
       cursor: pointer;
     }
 
     .delete-btn:hover {
-      color: var(--danger);
-      background: #f3e8e8;
+      color: var(--error);
+      background: #FFF4F3;
     }
 
     .empty {
       padding: 16px 8px;
       border-radius: 10px;
-      background: #fafaf8;
+      background: #F8FCFE;
       color: var(--muted);
       font-size: 13px;
       text-align: center;
@@ -713,227 +517,178 @@
       min-height: 43px;
       margin-top: 12px;
       padding: 10px 14px;
-      border: 1px solid #dcded9;
+      border: 1px solid #D9E2E8;
       border-radius: 10px;
-      background: #fafaf8;
-      color: #666b66;
+      background: #F8FBFD;
+      color: #60727D;
       cursor: pointer;
       font-size: 13px;
       font-weight: 600;
-      transition: background 0.18s ease;
+      transition: background .18s ease;
     }
 
     .clear-history:hover {
-      background: #f1f1ed;
+      background: #EEF6FA;
     }
 
-    /* =========================
-       SIGNATURE
-    ========================== */
-
-    .signature {
-  margin-top: 21px;
-  color: #7f8d81;
-  font-family:
-    "Biro Script Plus",
-    "Biro Script Plus Bold",
-    "Biro Script",
-    "Segoe Script",
-    "Bradley Hand",
-    cursive;
-  font-size: 14px;
-  font-style: italic;
-  font-weight: 700;
-  letter-spacing: 0.2px;
-  text-align: center;
-      }
-
-    .footer-note {
-      margin-top: 7px;
-      color: #a0a39e;
-      font-size: 10.5px;
+    .footer {
+      flex: 0 0 auto;
+      width: 100%;
+      margin: 0;
+      padding: 19px 20px 20px;
       text-align: center;
+      background: var(--blue-dark);
+      color: #fff;
+      box-sizing: border-box;
     }
 
-    /* =========================
-       RESPONSIVE
-    ========================== */
+    .footer-line {
+      width: 62px;
+      height: 2px;
+      margin: 0 auto 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.72);
+    }
+
+    .footer-copy {
+      color: #fff;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: .4px;
+    }
 
     @media (max-width: 560px) {
-      body {
-        padding: 10px;
+      .container {
+        width: 100%;
+        padding: 22px 18px 32px;
       }
 
       .app-card {
-        padding: 18px;
-        border-radius: 17px;
+        padding: 0;
       }
 
-      .result-box {
-        grid-template-columns: 1fr;
+      .footer {
+        width: 100%;
+        margin: 0;
+        border-radius: 0;
       }
 
-      .header {
-        margin-bottom: 23px;
+      .result-box { grid-template-columns: 1fr; }
+
+      .header { margin-bottom: 23px; }
+      h1 { font-size: 23px; }
+      .subtitle { font-size: 13px; }
+
+      .encouragement { min-height: 118px; }
+
+      .encouragement-inner {
+        width: 100%;
+        padding: 19px 16px;
       }
 
-      h1 {
-        font-size: 23px;
+      .encouragement::before,
+      .encouragement::after {
+        left: 9%;
+        right: 9%;
       }
 
-      .subtitle {
+      .encouragement-text {
         font-size: 13px;
+        line-height: 1.75;
       }
-
-      .encouragement {
-  min-height: 118px;
-}
-
-.encouragement-inner {
-  width: 100%;
-  padding: 19px 16px;
-}
-
-.encouragement::before,
-.encouragement::after {
-  left: 9%;
-  right: 9%;
-}
-
-.encouragement-text {
-  font-size: 13px;
-  line-height: 1.75;
-}
     }
-  </style></head><body>  <main class="container">
-    <div class="app-card">  <!-- HEADER -->
-  <header class="header">
-    <h1>Kalkulator Nilai Ujian Hifzh</h1>
-    <p class="subtitle">
-      Biar hitung-hitungan nggak ikut bikin pusing hihi..
-    </p>
-  </header>
+  </style>
+</head>
 
-  <!-- DATA DASAR -->
-  <section>
-    <div class="field">
-      <label for="nama">Nama Santriwati</label>
-      <div class="name-input-wrapper">
-        <input
-          id="nama"
-          type="text"
-          autocomplete="name"
-          placeholder="Masukkan nama santriwati"
-        >
-        <button
-          id="hapusNamaBtn"
-          class="clear-name-button"
-          type="button"
-          aria-label="Hapus nama"
-          title="Hapus nama"
-        >×</button>
-      </div>
+<body>
+  <main class="container">
+    <div class="app-card">
+
+      <header class="header">
+        <h1>Kalkulator Nilai Ujian Hifzh</h1>
+        <p class="subtitle">Biar hitung-hitungan nggak ikut bikin pusing hihi..</p>
+      </header>
+
+      <section>
+        <div class="field">
+          <label for="nama">Nama Santriwati</label>
+          <div class="clear-name-wrap">
+            <input id="nama" type="text" autocomplete="name" placeholder="Masukkan nama santriwati">
+            <button id="clearNameBtn" class="clear-name" type="button" aria-label="Hapus nama">×</button>
+          </div>
+          <div id="namaError" class="error-message hidden" aria-live="polite"></div>
+        </div>
+
+        <div class="field">
+          <label for="jenis">Mau hitung ujian yang mana?</label>
+          <select id="jenis">
+            <option value="">Pilih jenis ujian</option>
+            <option value="bulanan">Ujian Bulanan</option>
+            <option value="semester">Ujian Semester</option>
+          </select>
+          <div id="jenisError" class="error-message hidden" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <section id="dynamicForm" class="form-area dynamic-form hidden"></section>
+
+      <button id="hitungBtn" class="calculate-button" type="button" disabled>
+        Hitung Nilainya
+      </button>
+
+      <section id="hasil" class="result hidden" aria-live="polite">
+        <h2 class="result-title">Hasilnya nih 👇</h2>
+
+        <div class="result-box">
+          <div class="result-item">
+            <small id="labelNilai">Nilai Ujian Per Juz</small>
+            <strong id="nilai">-</strong>
+          </div>
+
+          <div id="bobotItem" class="result-item">
+            <small>Bobot Nilai</small>
+            <strong id="bobot">-</strong>
+          </div>
+        </div>
+
+        <details>
+          <summary>Mau cek hitungannya? 👀</summary>
+          <div id="rumus" class="formula"></div>
+        </details>
+      </section>
+
+      <section class="encouragement" aria-live="polite" aria-label="Pesan penyemangat">
+        <span class="encouragement-decoration left" aria-hidden="true"></span>
+        <div class="encouragement-inner">
+          <div id="encouragementText" class="encouragement-text"></div>
+        </div>
+        <span class="encouragement-decoration right" aria-hidden="true"></span>
+      </section>
+
+      <section class="history-section">
+        <h2 class="history-heading">Riwayat</h2>
+
+        <details id="historyDetails">
+          <summary>Lihat Riwayat 👀</summary>
+          <div class="history-wrap">
+            <div id="history" class="history"></div>
+          </div>
+          <button id="hapusSemuaBtn" class="clear-history" type="button">
+            Hapus Semua Riwayat
+          </button>
+        </details>
+      </section>
+
     </div>
+  </main>
 
-    <div class="field">
-      <label for="jenis">Mau hitung ujian yang mana?</label>
-      <select id="jenis">
-        <option value="">Pilih jenis ujian</option>
-        <option value="bulanan">Ujian Bulanan</option>
-        <option value="semester">Ujian Semester</option>
-      </select>
-    </div>
-  </section>
+  <footer class="footer">
+    <div class="footer-line"></div>
+    <div class="footer-copy">© 2026 ROMLAH</div>
+  </footer>
 
-  <!-- FORM DINAMIS -->
-  <section id="dynamicForm" class="form-area dynamic-form hidden"></section>
-
-  <!-- TOMBOL -->
-  <button
-    id="hitungBtn"
-    class="calculate-button"
-    type="button"
-  >
-    Hitung Nilainya
-  </button>
-
-  <!-- HASIL -->
-  <section
-    id="hasil"
-    class="result hidden"
-    aria-live="polite"
-  >
-    <h2 class="result-title">Hasilnya nih 👇</h2>
-
-    <div class="result-box">
-      <div class="result-item">
-        <small id="labelNilai">Nilai Ujian Per Juz</small>
-        <strong id="nilai">-</strong>
-      </div>
-
-      <div id="bobotItem" class="result-item">
-        <small>Bobot Nilai</small>
-        <strong id="bobot">-</strong>
-      </div>
-    </div>
-
-    <details>
-      <summary>Mau cek hitungannya? 👀</summary>
-      <div id="rumus" class="formula"></div>
-    </details>
-  </section>
-
-  <!-- TEKS PENYEMANGAT -->
-  <section
-    class="encouragement"
-    aria-live="polite"
-    aria-label="Pesan penyemangat"
-  >
-    <span class="encouragement-decoration left" aria-hidden="true"></span>
-
-    <div class="encouragement-inner">
-      <div id="encouragementText" class="encouragement-text"></div>
-    </div>
-
-    <span class="encouragement-decoration right" aria-hidden="true"></span>
-  </section>
-
-  <!-- RIWAYAT -->
-  <section class="history-section">
-    <details class="history-details">
-      <summary>Lihat Riwayat 👀</summary>
-
-      <div class="history-details-content">
-        <div id="history" class="history"></div>
-
-        <button
-          id="hapusSemuaBtn"
-          class="clear-history"
-          type="button"
-        >
-          Hapus Semua Riwayat
-        </button>
-      </div>
-    </details>
-  </section>
-
-  <!-- SIGNATURE -->
-  <div class="signature">by Romlah</div>
-
-  <div class="footer-note">
-    Data riwayat tersimpan di perangkat ini.
-  </div>
-
-</div>
-
-  </main>  <script>
+  <script>
     "use strict";
-
-    /*
-      ==========================================
-      KALKULATOR NILAI UJIAN HIFZH
-      ==========================================
-    */
 
     const STORAGE_KEY = "riwayatHifzh";
     const OLD_STORAGE_KEY = "riwayatHifzhBulanan";
@@ -941,70 +696,28 @@
     const state = {
       formVersion: 0,
       encouragementIndex: 0,
-      encouragementTimer: null
+      encouragementTimer: null,
+      validationAttempted: false
     };
 
-    /*
-      Emoji sengaja dipisahkan dari teks.
-      Untuk bahasa Arab digunakan direction RTL
-      agar emoji tetap berada di ujung visual kalimat.
-    */
     const encouragements = [
-      {
-        text: "ما أجمل تفانيك، وما أروع بذلك، شكر الله سعيك",
-        emoji: "🍄",
-        direction: "rtl"
-      },
-      {
-        text: "جزاك الله الدرجات العلى من الجنة",
-        emoji: "🌻",
-        direction: "rtl"
-      },
-      {
-        text: "Terima kasih sudah menjadi bagian dari proses belajar mereka",
-        emoji: "🤍",
-        direction: "ltr"
-      },
-      {
-        text: "Satu per satu, insyaallah selesai juga",
-        emoji: "🌹",
-        direction: "ltr"
-      },
-      {
-        text: "سقى الله قلبك غيثا من السعادة",
-        emoji: "🎈",
-        direction: "rtl"
-      },
-      {
-        text: "Semoga dimudahkan dalam setiap penilaian",
-        emoji: "💐",
-        direction: "ltr"
-      },
-      {
-        text: "Semoga setiap lelah menjadi pahala di sisi Allah",
-        emoji: "🤲",
-        direction: "ltr"
-      },
-      {
-        text: "Pelan-pelan, yang penting teliti dan tetap semangat",
-        emoji: "🌿",
-        direction: "ltr"
-      },
-      {
-        text: "Semoga ini menjadi amal yang terus mengalir hingga anak² dewasa, aamiin",
-        emoji: "🌸",
-        direction: "ltr"
-      },
-      {
-        text: "كتب الله أجرك وبارك في عملك",
-        emoji: "🌸",
-        direction: "rtl"
-      }
+      { text: "ما أجمل تفانيك، وما أروع بذلك، شكر الله سعيك", emoji: "🍄", direction: "rtl" },
+      { text: "جزاك الله الدرجات العلى من الجنة", emoji: "🌻", direction: "rtl" },
+      { text: "Terima kasih sudah menjadi bagian dari proses belajar mereka", emoji: "🤍", direction: "ltr" },
+      { text: "Satu per satu, insyaallah selesai juga", emoji: "🌹", direction: "ltr" },
+      { text: "سقى الله قلبك غيثا من السعادة", emoji: "🎈", direction: "rtl" },
+      { text: "Semoga dimudahkan dalam setiap penilaian", emoji: "💐", direction: "ltr" },
+      { text: "Semoga setiap lelah menjadi pahala di sisi Allah", emoji: "🤲", direction: "ltr" },
+      { text: "Pelan-pelan, yang penting teliti dan tetap semangat", emoji: "🌿", direction: "ltr" },
+      { text: "Semoga ini menjadi amal yang terus mengalir hingga anak² dewasa, aamiin", emoji: "🌸", direction: "ltr" },
+      { text: "كتب الله أجرك وبارك في عملك", emoji: "🌸", direction: "rtl" }
     ];
 
     const els = {
       nama: document.getElementById("nama"),
+      namaError: document.getElementById("namaError"),
       jenis: document.getElementById("jenis"),
+      jenisError: document.getElementById("jenisError"),
       dynamicForm: document.getElementById("dynamicForm"),
       hitungBtn: document.getElementById("hitungBtn"),
       hasil: document.getElementById("hasil"),
@@ -1015,14 +728,9 @@
       rumus: document.getElementById("rumus"),
       history: document.getElementById("history"),
       hapusSemuaBtn: document.getElementById("hapusSemuaBtn"),
-      encouragementText: document.getElementById("encouragementText")
+      encouragementText: document.getElementById("encouragementText"),
+      clearNameBtn: document.getElementById("clearNameBtn")
     };
-
-    /*
-      ==========================================
-      FORMAT ANGKA
-      ==========================================
-    */
 
     function fmt(value) {
       return Number(value).toLocaleString("id-ID", {
@@ -1046,21 +754,57 @@
         .replaceAll("'", "&#039;");
     }
 
-    function getNumber(id) {
+    function getElementValue(id) {
       const element = document.getElementById(id);
-
-      if (!element) {
-        return NaN;
-      }
-
-      return Number(element.value);
+      return element ? element.value.trim() : "";
     }
 
-    /*
-      ==========================================
-      HTML FIELD HELPERS
-      ==========================================
-    */
+    function getNumber(id) {
+      const value = getElementValue(id);
+      return value === "" ? NaN : Number(value);
+    }
+
+    function setError(id, message) {
+      const input = document.getElementById(id);
+      const error = document.getElementById(id + "Error");
+
+      if (input) {
+        input.classList.add("input-error");
+        input.setAttribute("aria-invalid", "true");
+      }
+
+      if (error) {
+        error.textContent = message;
+        error.classList.remove("hidden");
+      }
+    }
+
+    function clearError(id) {
+      const input = document.getElementById(id);
+      const error = document.getElementById(id + "Error");
+
+      if (input) {
+        input.classList.remove("input-error");
+        input.removeAttribute("aria-invalid");
+      }
+
+      if (error) {
+        error.textContent = "";
+        error.classList.add("hidden");
+      }
+    }
+
+    function clearAllErrors() {
+      document.querySelectorAll(".input-error").forEach(el => {
+        el.classList.remove("input-error");
+        el.removeAttribute("aria-invalid");
+      });
+
+      document.querySelectorAll(".error-message").forEach(el => {
+        el.textContent = "";
+        el.classList.add("hidden");
+      });
+    }
 
     function fieldHtml({
       id,
@@ -1079,7 +823,6 @@
       return `
         <div class="field">
           <label for="${id}">${label}</label>
-
           <input
             id="${id}"
             type="${type}"
@@ -1089,43 +832,26 @@
             placeholder="${placeholder}"
             ${type === "number" ? 'inputmode="decimal"' : ""}
           >
-
-          ${
-            note
-              ? `<div class="note">${note}</div>`
-              : ""
-          }
+          <div id="${id}Error" class="error-message hidden" aria-live="polite"></div>
+          ${note ? `<div class="note">${note}</div>` : ""}
         </div>
       `;
     }
 
-    function selectHtml({
-      id,
-      label,
-      options
-    }) {
+    function selectHtml({ id, label, options }) {
       return `
         <div class="field">
           <label for="${id}">${label}</label>
-
           <select id="${id}">
             <option value="">Pilih...</option>
-
             ${options.map(option => `
-              <option value="${option.value}">
-                ${option.label}
-              </option>
+              <option value="${option.value}">${option.label}</option>
             `).join("")}
           </select>
+          <div id="${id}Error" class="error-message hidden" aria-live="polite"></div>
         </div>
       `;
     }
-
-    /*
-      ==========================================
-      HASIL
-      ==========================================
-    */
 
     function resetResult() {
       els.hasil.classList.add("hidden");
@@ -1134,84 +860,50 @@
       els.rumus.innerHTML = "";
     }
 
-    function showCalculateButton(show) {
-      els.hitungBtn.classList.toggle("hidden", !show);
-    }
+    function updateCalculateButton() {
+      const hasAnyValue =
+        els.nama.value.trim() !== "" ||
+        els.jenis.value !== "" ||
+        !!els.dynamicForm.querySelector("input, select") &&
+        Array.from(els.dynamicForm.querySelectorAll("input, select"))
+          .some(el => el.value.trim() !== "");
 
-    function updateCalculateButtonState() {
-      const fields = [
-        els.nama,
-        els.jenis,
-        ...els.dynamicForm.querySelectorAll("input, select")
-      ];
-
-      const hasAnyValue = fields.some(field => field && field.value.trim() !== "");
       els.hitungBtn.disabled = !hasAnyValue;
     }
 
-    function tampilkanHasil({
-      labelNilai,
-      nilai,
-      bobot,
-      rumus
-    }) {
+    function tampilkanHasil({ labelNilai, nilai, bobot, rumus }) {
       els.labelNilai.textContent = labelNilai;
       els.nilai.textContent = fmt(nilai);
       els.rumus.innerHTML = rumus;
 
       const adaBobot = Number.isFinite(bobot);
 
-      els.bobotItem.classList.toggle(
-        "hidden",
-        !adaBobot
-      );
-
-      els.bobot.textContent =
-        adaBobot
-          ? fmt(bobot)
-          : "-";
+      els.bobotItem.classList.toggle("hidden", !adaBobot);
+      els.bobot.textContent = adaBobot ? fmt(bobot) : "-";
 
       els.hasil.classList.remove("hidden");
 
       requestAnimationFrame(() => {
-        els.hasil.scrollIntoView({
-          behavior: "smooth",
-          block: "nearest"
-        });
+        els.hasil.scrollIntoView({ behavior: "smooth", block: "nearest" });
       });
     }
 
-    /*
-     
-      ==========================================
-      RENDER FORM UTAMA
-      ==========================================
-    */
-
     function renderForm() {
       const jenis = els.jenis.value;
-
       state.formVersion += 1;
-
       const currentVersion = state.formVersion;
 
       resetResult();
+      clearError("jenis");
 
       if (!jenis) {
         els.dynamicForm.innerHTML = "";
         els.dynamicForm.classList.add("hidden");
-        showCalculateButton(true);
-      attachInlineValidation();
-        attachInlineValidation();
+        updateCalculateButton();
         return;
       }
 
       els.dynamicForm.classList.remove("hidden");
-      showCalculateButton(true);
-
-      /*
-        UJIAN BULANAN
-      */
 
       if (jenis === "bulanan") {
         els.dynamicForm.innerHTML = `
@@ -1219,100 +911,52 @@
             id: "materiBulanan",
             label: "Materinya apa?",
             options: [
-              {
-                value: "30",
-                label: "Juz 30 (Belum Genap)"
-              },
-              {
-                value: "lebih",
-                label: "1 Juz atau Lebih"
-              }
+              { value: "30", label: "Juz 30 (Belum Genap)" },
+              { value: "lebih", label: "1 Juz atau Lebih" }
             ]
           })}
-
           <div id="bulananDetail"></div>
         `;
 
-        const materiBulanan =
-          document.getElementById("materiBulanan");
-
-        materiBulanan.addEventListener(
-          "change",
-          () => {
-            if (currentVersion !== state.formVersion) {
-              return;
-            }
-
-            renderBulananDetail();
-          }
-        );
+        document.getElementById("materiBulanan").addEventListener("change", () => {
+          if (currentVersion !== state.formVersion) return;
+          renderBulananDetail();
+          updateCalculateButton();
+        });
 
         renderBulananDetail();
-        return;
+      } else {
+        els.dynamicForm.innerHTML = `
+          ${selectHtml({
+            id: "semesterGenap",
+            label: "Materinya sudah genap 1 juz?",
+            options: [
+              { value: "genap", label: "Genap 1 Juz" },
+              { value: "belum", label: "Belum Genap 1 Juz" }
+            ]
+          })}
+          <div id="semesterDetail"></div>
+        `;
+
+        document.getElementById("semesterGenap").addEventListener("change", () => {
+          if (currentVersion !== state.formVersion) return;
+          renderSemesterDetail();
+          updateCalculateButton();
+        });
+
+        renderSemesterDetail();
       }
 
-      /*
-        UJIAN SEMESTER
-      */
-
-      els.dynamicForm.innerHTML = `
-        ${selectHtml({
-          id: "semesterGenap",
-          label: "Materinya sudah genap 1 juz?",
-          options: [
-            {
-              value: "genap",
-              label: "Genap 1 Juz"
-            },
-            {
-              value: "belum",
-              label: "Belum Genap 1 Juz"
-            }
-          ]
-        })}
-
-        <div id="semesterDetail"></div>
-      `;
-
-      const semesterGenap =
-        document.getElementById("semesterGenap");
-
-      semesterGenap.addEventListener(
-        "change",
-        () => {
-          if (currentVersion !== state.formVersion) {
-            return;
-          }
-
-          renderSemesterDetail();
-        }
-      );
-
-      renderSemesterDetail();
+      updateCalculateButton();
     }
 
-    /*
-      ==========================================
-      BULANAN
-      ==========================================
-    */
-
     function renderBulananDetail() {
-      const materi =
-        document.getElementById("materiBulanan");
-
-      const detail =
-        document.getElementById("bulananDetail");
-
-      if (!materi || !detail) {
-        return;
-      }
+      const materi = document.getElementById("materiBulanan");
+      const detail = document.getElementById("bulananDetail");
+      if (!materi || !detail) return;
 
       resetResult();
-
-      /*
-        BULANAN → JUZ 30
-      */
+      clearAllErrors();
 
       if (materi.value === "30") {
         detail.innerHTML = `
@@ -1323,26 +967,16 @@
             step: "1",
             placeholder: "Contoh: 5"
           })}
-
           ${fieldHtml({
             id: "halaman",
             label: "Berapa halaman yang disetor?",
             min: "0.01",
             step: "0.01",
             placeholder: "Contoh: 12",
-            note:
-              "Angka 23 halaman otomatis digunakan dalam perhitungan."
+            note: "Angka 23 halaman otomatis digunakan dalam perhitungan."
           })}
         `;
-
-        return;
-      }
-
-      /*
-        BULANAN → LEBIH DARI 1 JUZ
-      */
-
-      if (materi.value === "lebih") {
+      } else if (materi.value === "lebih") {
         detail.innerHTML = `
           ${fieldHtml({
             id: "kesalahan",
@@ -1351,7 +985,6 @@
             step: "1",
             placeholder: "Contoh: 5"
           })}
-
           ${fieldHtml({
             id: "jumlahJuz",
             label: "Berapa juz yang diujikan?",
@@ -1359,39 +992,23 @@
             max: "5",
             step: "1",
             placeholder: "1–5",
-            note:
-              "Jumlah juz yang diujikan dibatasi 1–5 juz."
+            note: "Jumlah juz yang diujikan dibatasi 1–5 juz."
           })}
         `;
-
-        return;
+      } else {
+        detail.innerHTML = "";
       }
 
-      detail.innerHTML = "";
+      attachLiveValidation();
     }
 
-    /*
-      ==========================================
-      SEMESTER
-      ==========================================
-    */
-
     function renderSemesterDetail() {
-      const genap =
-        document.getElementById("semesterGenap");
-
-      const detail =
-        document.getElementById("semesterDetail");
-
-      if (!genap || !detail) {
-        return;
-      }
+      const genap = document.getElementById("semesterGenap");
+      const detail = document.getElementById("semesterDetail");
+      if (!genap || !detail) return;
 
       resetResult();
-
-      /*
-        SEMESTER → GENAP 1 JUZ
-      */
+      clearAllErrors();
 
       if (genap.value === "genap") {
         detail.innerHTML = `
@@ -1403,66 +1020,34 @@
             placeholder: "Contoh: 5"
           })}
         `;
-
-        return;
-      }
-
-      /*
-        SEMESTER → BELUM GENAP
-      */
-
-      if (genap.value === "belum") {
+      } else if (genap.value === "belum") {
         detail.innerHTML = `
           ${selectHtml({
             id: "materiSemester",
             label: "Materinya apa?",
             options: [
-              {
-                value: "30",
-                label: "Juz 30"
-              },
-              {
-                value: "selain30",
-                label: "Selain Juz 30"
-              }
+              { value: "30", label: "Juz 30" },
+              { value: "selain30", label: "Selain Juz 30" }
             ]
           })}
-
           <div id="semesterMateriDetail"></div>
         `;
 
-        const materiSemester =
-          document.getElementById("materiSemester");
-
-        materiSemester.addEventListener(
-          "change",
-          renderSemesterMateriDetail
-        );
-
+        document.getElementById("materiSemester").addEventListener("change", renderSemesterMateriDetail);
         renderSemesterMateriDetail();
-
-        return;
+      } else {
+        detail.innerHTML = "";
       }
 
-      detail.innerHTML = "";
+      attachLiveValidation();
     }
 
     function renderSemesterMateriDetail() {
-      const materi =
-        document.getElementById("materiSemester");
-
-      const detail =
-        document.getElementById("semesterMateriDetail");
-
-      if (!materi || !detail) {
-        return;
-      }
+      const materi = document.getElementById("materiSemester");
+      const detail = document.getElementById("semesterMateriDetail");
+      if (!materi || !detail) return;
 
       resetResult();
-
-      /*
-        SEMESTER → BELUM GENAP → JUZ 30
-      */
 
       if (materi.value === "30") {
         detail.innerHTML = `
@@ -1473,26 +1058,16 @@
             step: "1",
             placeholder: "Contoh: 5"
           })}
-
           ${fieldHtml({
             id: "halaman",
             label: "Berapa halaman yang disetor?",
             min: "0.01",
             step: "0.01",
             placeholder: "Contoh: 12",
-            note:
-              "Angka 23 halaman otomatis digunakan dalam perhitungan."
+            note: "Angka 23 halaman otomatis digunakan dalam perhitungan."
           })}
         `;
-
-        return;
-      }
-
-      /*
-        SEMESTER → BELUM GENAP → SELAIN JUZ 30
-      */
-
-      if (materi.value === "selain30") {
+      } else if (materi.value === "selain30") {
         detail.innerHTML = `
           ${fieldHtml({
             id: "kesalahan",
@@ -1501,362 +1076,171 @@
             step: "1",
             placeholder: "Contoh: 5"
           })}
-
           ${fieldHtml({
             id: "halaman",
             label: "Berapa halaman yang disetor?",
             min: "0.01",
             step: "0.01",
             placeholder: "Contoh: 12",
-            note:
-              "Angka 20 halaman otomatis digunakan dalam perhitungan."
+            note: "Angka 20 halaman otomatis digunakan dalam perhitungan."
           })}
         `;
-      }
-    }
-
-    /*
-      ==========================================
-      VALIDASI
-      ==========================================
-    */
-
-    function clearFieldError(id) {
-      const element = document.getElementById(id);
-      if (!element) return;
-
-      const field = element.closest(".field");
-      if (!field) return;
-
-      field.classList.remove("field-error");
-      field.querySelector(".field-error-message")?.remove();
-      element.removeAttribute("aria-invalid");
-    }
-
-    function setFieldError(id, message) {
-      const element = document.getElementById(id);
-      if (!element) return;
-
-      const field = element.closest(".field");
-      if (!field) return;
-
-      clearFieldError(id);
-      field.classList.add("field-error");
-      element.setAttribute("aria-invalid", "true");
-
-      const error = document.createElement("div");
-      error.className = "field-error-message";
-      error.textContent = message;
-      field.appendChild(error);
-    }
-
-    function validateField(id, showError = true) {
-      const element = document.getElementById(id);
-      if (!element) return true;
-
-      const raw = element.value.trim();
-      let message = "";
-
-      if (id === "nama" && !raw) {
-        message = "Namanya belum diisi nih..";
-      } else if (id === "jenis" && !raw) {
-        message = "Mau hitung ujian yang mana dulu?";
-      } else if (id === "materiBulanan" && !raw) {
-        message = "Materinya belum dipilih.";
-      } else if (id === "semesterGenap" && !raw) {
-        message = "Materinya sudah genap 1 juz atau belum?";
-      } else if (id === "materiSemester" && !raw) {
-        message = "Materinya belum dipilih.";
-      } else if (id === "kesalahan") {
-        if (!raw) message = "Jumlah kesalahan nggak bisa kosong.";
-        else if (!Number.isFinite(Number(raw)) || Number(raw) < 0)
-          message = "Jumlah kesalahan nggak bisa kurang dari 0.";
-      } else if (id === "halaman") {
-        if (!raw) message = "Jumlah halamannya belum diisi.";
-        else if (!Number.isFinite(Number(raw)) || Number(raw) <= 0)
-          message = "Jumlah halaman harus lebih dari 0.";
-      } else if (id === "jumlahJuz") {
-        if (!raw) message = "Jumlah juznya belum diisi.";
-        else {
-          const value = Number(raw);
-          if (!Number.isInteger(value) || value < 1 || value > 5)
-            message = "Jumlah juznya ga bisa lebih dari 5.";
-        }
+      } else {
+        detail.innerHTML = "";
       }
 
-      if (message) {
-        if (showError) setFieldError(id, message);
-        return false;
-      }
-
-      clearFieldError(id);
-      return true;
+      attachLiveValidation();
+      updateCalculateButton();
     }
 
-    function requiredFieldIds() {
-      const ids = ["nama", "jenis"];
-      const jenis = els.jenis.value;
+    function validateAll() {
+      clearAllErrors();
 
-      if (jenis === "bulanan") {
-        ids.push("materiBulanan");
-        const materi = document.getElementById("materiBulanan")?.value;
-        if (materi) {
-          ids.push("kesalahan");
-          ids.push(materi === "30" ? "halaman" : "jumlahJuz");
-        }
-      } else if (jenis === "semester") {
-        ids.push("semesterGenap");
-        const kondisi = document.getElementById("semesterGenap")?.value;
-        if (kondisi === "genap") {
-          ids.push("kesalahan");
-        } else if (kondisi === "belum") {
-          ids.push("materiSemester");
-          const materi = document.getElementById("materiSemester")?.value;
-          if (materi) ids.push("kesalahan", "halaman");
-        }
-      }
-
-      return ids;
-    }
-
-    function validateForm(showErrors = true) {
-      const ids = requiredFieldIds();
       let valid = true;
       let firstInvalid = null;
 
-      for (const id of ids) {
-        if (!validateField(id, showErrors)) {
-          valid = false;
-          firstInvalid ||= document.getElementById(id);
+      const fail = (id, message) => {
+        setError(id, message);
+        valid = false;
+        if (!firstInvalid) firstInvalid = document.getElementById(id);
+      };
+
+      const nama = els.nama.value.trim();
+      const jenis = els.jenis.value;
+
+      if (!nama) fail("nama", "Namanya belum diisi nih.");
+      if (!jenis) fail("jenis", "Mau hitung ujian yang mana dulu?");
+
+      if (!jenis) return { valid, firstInvalid };
+
+      if (jenis === "bulanan") {
+        const materi = getElementValue("materiBulanan");
+        if (!materi) {
+          fail("materiBulanan", "Materinya belum dipilih.");
+        } else {
+          const kesalahanRaw = getElementValue("kesalahan");
+          const kesalahan = getNumber("kesalahan");
+
+          if (kesalahanRaw === "") {
+            fail("kesalahan", "Jumlah kesalahan nggak bisa kosong.");
+          } else if (!Number.isFinite(kesalahan) || kesalahan < 0) {
+            fail("kesalahan", "Jumlah kesalahannya nggak bisa kurang dari 0.");
+          }
+
+          if (materi === "30") {
+            const halamanRaw = getElementValue("halaman");
+            const halaman = getNumber("halaman");
+            if (halamanRaw === "") {
+              fail("halaman", "Jumlah halamannya belum diisi.");
+            } else if (!Number.isFinite(halaman) || halaman <= 0) {
+              fail("halaman", "Jumlah halaman harus lebih dari 0.");
+            }
+          } else {
+            const juzRaw = getElementValue("jumlahJuz");
+            const jumlahJuz = getNumber("jumlahJuz");
+            if (juzRaw === "") {
+              fail("jumlahJuz", "Jumlah juznya belum diisi.");
+            } else if (!Number.isInteger(jumlahJuz) || jumlahJuz < 1 || jumlahJuz > 5) {
+              fail("jumlahJuz", "Jumlah juznya pilih antara 1–5.");
+            }
+          }
+        }
+      }
+
+      if (jenis === "semester") {
+        const kondisi = getElementValue("semesterGenap");
+
+        if (!kondisi) {
+          fail("semesterGenap", "Materinya sudah genap 1 juz atau belum?");
+        } else {
+          const kesalahanRaw = getElementValue("kesalahan");
+          const kesalahan = getNumber("kesalahan");
+
+          if (kesalahanRaw === "") {
+            fail("kesalahan", "Jumlah kesalahan nggak bisa kosong.");
+          } else if (!Number.isFinite(kesalahan) || kesalahan < 0) {
+            fail("kesalahan", "Jumlah kesalahannya nggak bisa kurang dari 0.");
+          }
+
+          if (kondisi === "belum") {
+            const materi = getElementValue("materiSemester");
+
+            if (!materi) {
+              fail("materiSemester", "Materinya belum dipilih.");
+            } else {
+              const halamanRaw = getElementValue("halaman");
+              const halaman = getNumber("halaman");
+
+              if (halamanRaw === "") {
+                fail("halaman", "Jumlah halamannya belum diisi.");
+              } else if (!Number.isFinite(halaman) || halaman <= 0) {
+                fail("halaman", "Jumlah halaman harus lebih dari 0.");
+              }
+            }
+          }
         }
       }
 
       return { valid, firstInvalid };
     }
 
-    function attachInlineValidation() {
-      const ids = requiredFieldIds();
-
-      for (const id of ids) {
-        const element = document.getElementById(id);
-        if (!element || element.dataset.validationBound === "1") continue;
-        element.dataset.validationBound = "1";
-
-        element.addEventListener("input", () => {
-          if (element.closest(".field")?.classList.contains("field-error")) {
-            validateField(id, true);
-          }
-          updateCalculateButtonState();
+    function attachLiveValidation() {
+      els.dynamicForm.querySelectorAll("input, select").forEach(el => {
+        el.addEventListener("input", () => {
+          updateCalculateButton();
+          if (state.validationAttempted) validateAll();
         });
 
-        element.addEventListener("change", () => {
-          if (element.closest(".field")?.classList.contains("field-error")) {
-            validateField(id, true);
-          }
-          updateCalculateButtonState();
-          window.setTimeout(attachInlineValidation, 0);
+        el.addEventListener("change", () => {
+          updateCalculateButton();
+          if (state.validationAttempted) validateAll();
         });
-      }
+      });
     }
-
-    function validateCommon() {
-      return true;
-    }
-
-    /*
-      ==========================================
-      HITUNG BULANAN
-      ==========================================
-    */
 
     function hitungBulanan() {
-      const materi =
-        document.getElementById(
-          "materiBulanan"
-        )?.value;
+      const materi = getElementValue("materiBulanan");
+      const nama = els.nama.value.trim();
+      const kesalahan = getNumber("kesalahan");
 
-      const nama =
-        els.nama.value.trim();
-
-      const kesalahan =
-        getNumber("kesalahan");
-
-      if (!materi) {
-        alert(
-          "Silakan pilih materi ujian terlebih dahulu."
-        );
-
-        document
-          .getElementById("materiBulanan")
-          ?.focus();
-
-        return;
-      }
-
-      if (
-        !validateCommon(
-          nama,
-          kesalahan
-        )
-      ) {
-        return;
-      }
-
-      let nilai;
-      let bobot;
-      let halaman = null;
-      let jumlahJuz = null;
-      let rumus = "";
-
-      /*
-        BULANAN → JUZ 30
-
-        Nilai:
-        100 - ((kesalahan × 2 × 23) ÷ halaman)
-
-        Bobot:
-        nilai × (halaman ÷ 23)
-      */
+      let nilai, bobot, halaman = null, jumlahJuz = null, rumus = "";
 
       if (materi === "30") {
-        halaman =
-          getNumber("halaman");
-
-        if (
-          !Number.isFinite(halaman) ||
-          halaman <= 0
-        ) {
-          alert(
-            "Jumlah halaman disetor harus lebih dari 0."
-          );
-
-          document
-            .getElementById("halaman")
-            ?.focus();
-
-          return;
-        }
-
+        halaman = getNumber("halaman");
         const totalHalaman = 23;
 
-        nilai =
-          100 -
-          (
-            kesalahan *
-            2 *
-            totalHalaman
-          ) /
-            halaman;
-
-        bobot =
-          nilai *
-          (
-            halaman /
-            totalHalaman
-          );
+        nilai = 100 - ((kesalahan * 2 * totalHalaman) / halaman);
+        bobot = nilai * (halaman / totalHalaman);
 
         rumus = `
-          <div class="formula-title">
-            Nilai Ujian Per Juz
-          </div>
+          <div class="formula-title">Nilai Ujian Per Juz</div>
+          <div>= 100 - ((${angka(kesalahan)} × 2 × 23) ÷ ${angka(halaman)})</div>
+          <div>= 100 - (${angka(kesalahan * 2 * totalHalaman)} ÷ ${angka(halaman)})</div>
+          <div class="formula-result">= ${fmt(nilai)}</div>
 
-          <div>
-            = 100 - ((${angka(kesalahan)} × 2 × 23) ÷ ${angka(halaman)})
-          </div>
-
-          <div>
-            = 100 - (${angka(kesalahan * 2 * totalHalaman)} ÷ ${angka(halaman)})
-          </div>
-
-          <div class="formula-result">
-            = ${fmt(nilai)}
-          </div>
-
-          <div class="formula-title">
-            Bobot Nilai
-          </div>
-
-          <div>
-            = ${fmt(nilai)} × (${angka(halaman)} ÷ 23)
-          </div>
-
-          <div class="formula-result">
-            = ${fmt(bobot)}
-          </div>
+          <div class="formula-title">Bobot Nilai</div>
+          <div>= ${fmt(nilai)} × (${angka(halaman)} ÷ 23)</div>
+          <div class="formula-result">= ${fmt(bobot)}</div>
         `;
-      }
+      } else {
+        jumlahJuz = getNumber("jumlahJuz");
 
-      /*
-        BULANAN → LEBIH DARI 1 JUZ
-
-        Nilai:
-        100 - (kesalahan × 2)
-
-        Bobot:
-        nilai × jumlah juz
-      */
-
-      else {
-        jumlahJuz =
-          getNumber("jumlahJuz");
-
-        if (
-          !Number.isInteger(jumlahJuz) ||
-          jumlahJuz < 1 ||
-          jumlahJuz > 5
-        ) {
-          alert(
-            "Jumlah juz yang diujikan harus 1 sampai 5 juz."
-          );
-
-          document
-            .getElementById("jumlahJuz")
-            ?.focus();
-
-          return;
-        }
-
-        nilai =
-          100 -
-          kesalahan * 2;
-
-        bobot =
-          nilai *
-          jumlahJuz;
+        nilai = 100 - kesalahan * 2;
+        bobot = nilai * jumlahJuz;
 
         rumus = `
-          <div class="formula-title">
-            Nilai Ujian Bulanan
-          </div>
+          <div class="formula-title">Nilai Ujian Bulanan</div>
+          <div>= 100 - (${angka(kesalahan)} × 2)</div>
+          <div class="formula-result">= ${fmt(nilai)}</div>
 
-          <div>
-            = 100 - (${angka(kesalahan)} × 2)
-          </div>
-
-          <div class="formula-result">
-            = ${fmt(nilai)}
-          </div>
-
-          <div class="formula-title">
-            Bobot Nilai
-          </div>
-
-          <div>
-            = ${fmt(nilai)} × ${angka(jumlahJuz)}
-          </div>
-
-          <div class="formula-result">
-            = ${fmt(bobot)}
-          </div>
+          <div class="formula-title">Bobot Nilai</div>
+          <div>= ${fmt(nilai)} × ${angka(jumlahJuz)}</div>
+          <div class="formula-result">= ${fmt(bobot)}</div>
         `;
       }
 
       tampilkanHasil({
-        labelNilai:
-          materi === "30"
-            ? "Nilai Ujian Per Juz"
-            : "Nilai Ujian Bulanan",
-
+        labelNilai: materi === "30" ? "Nilai Ujian Per Juz" : "Nilai Ujian Bulanan",
         nilai,
         bobot,
         rumus
@@ -1864,16 +1248,10 @@
 
       simpanRiwayat({
         id: createId(),
-        waktu:
-          new Date().toLocaleString(
-            "id-ID"
-          ),
+        waktu: new Date().toLocaleString("id-ID"),
         nama,
         ujian: "Ujian Bulanan",
-        materi:
-          materi === "30"
-            ? "Juz 30 (Belum Genap)"
-            : "1 Juz atau Lebih",
+        materi: materi === "30" ? "Juz 30 (Belum Genap)" : "1 Juz atau Lebih",
         kesalahan,
         halaman,
         jumlahJuz,
@@ -1882,207 +1260,56 @@
       });
     }
 
-    /*
-      ==========================================
-      HITUNG SEMESTER
-      ==========================================
-    */
-
     function hitungSemester() {
-      const kondisi =
-        document.getElementById(
-          "semesterGenap"
-        )?.value;
-
-      const nama =
-        els.nama.value.trim();
-
-      const kesalahan =
-        getNumber("kesalahan");
-
-      if (!kondisi) {
-        alert(
-          "Silakan pilih apakah materi sudah genap 1 juz."
-        );
-
-        document
-          .getElementById("semesterGenap")
-          ?.focus();
-
-        return;
-      }
-
-      if (
-        !validateCommon(
-          nama,
-          kesalahan
-        )
-      ) {
-        return;
-      }
+      const kondisi = getElementValue("semesterGenap");
+      const nama = els.nama.value.trim();
+      const kesalahan = getNumber("kesalahan");
 
       let nilai;
       let halaman = null;
       let materiRiwayat;
       let rumus = "";
 
-      /*
-        SEMESTER → GENAP 1 JUZ
-
-        100 - (kesalahan × 2)
-      */
-
       if (kondisi === "genap") {
-        nilai =
-          100 -
-          kesalahan * 2;
-
-        materiRiwayat =
-          "Genap 1 Juz";
+        nilai = 100 - kesalahan * 2;
+        materiRiwayat = "Genap 1 Juz";
 
         rumus = `
-          <div class="formula-title">
-            Nilai Ujian Per Juz
-          </div>
-
-          <div>
-            = 100 - (${angka(kesalahan)} × 2)
-          </div>
-
-          <div class="formula-result">
-            = ${fmt(nilai)}
-          </div>
+          <div class="formula-title">Nilai Ujian Per Juz</div>
+          <div>= 100 - (${angka(kesalahan)} × 2)</div>
+          <div class="formula-result">= ${fmt(nilai)}</div>
         `;
-      }
-
-      /*
-        SEMESTER → BELUM GENAP
-      */
-
-      else {
-        const materi =
-          document.getElementById(
-            "materiSemester"
-          )?.value;
-
-        if (!materi) {
-          alert(
-            "Silakan pilih materi terlebih dahulu."
-          );
-
-          document
-            .getElementById("materiSemester")
-            ?.focus();
-
-          return;
-        }
-
-        halaman =
-          getNumber("halaman");
-
-        if (
-          !Number.isFinite(halaman) ||
-          halaman <= 0
-        ) {
-          alert(
-            "Jumlah halaman disetor harus lebih dari 0."
-          );
-
-          document
-            .getElementById("halaman")
-            ?.focus();
-
-          return;
-        }
-
-        /*
-          SEMESTER → BELUM GENAP → JUZ 30
-
-          100 - ((kesalahan × 2 × 23) ÷ halaman)
-        */
+      } else {
+        const materi = getElementValue("materiSemester");
+        halaman = getNumber("halaman");
 
         if (materi === "30") {
           const totalHalaman = 23;
-
-          nilai =
-            100 -
-            (
-              kesalahan *
-              2 *
-              totalHalaman
-            ) /
-              halaman;
-
-          materiRiwayat =
-            "Belum Genap 1 Juz — Juz 30";
+          nilai = 100 - ((kesalahan * 2 * totalHalaman) / halaman);
+          materiRiwayat = "Belum Genap 1 Juz — Juz 30";
 
           rumus = `
-            <div class="formula-title">
-              Nilai Ujian Per Juz
-            </div>
-
-            <div>
-              = 100 - ((${angka(kesalahan)} × 2 × 23) ÷ ${angka(halaman)})
-            </div>
-
-            <div>
-              = 100 - (${angka(kesalahan * 2 * totalHalaman)} ÷ ${angka(halaman)})
-            </div>
-
-            <div class="formula-result">
-              = ${fmt(nilai)}
-            </div>
+            <div class="formula-title">Nilai Ujian Per Juz</div>
+            <div>= 100 - ((${angka(kesalahan)} × 2 × 23) ÷ ${angka(halaman)})</div>
+            <div>= 100 - (${angka(kesalahan * 2 * totalHalaman)} ÷ ${angka(halaman)})</div>
+            <div class="formula-result">= ${fmt(nilai)}</div>
           `;
-        }
-
-        /*
-          SEMESTER → BELUM GENAP → SELAIN JUZ 30
-
-          100 - ((kesalahan × 2 × 20) ÷ halaman)
-        */
-
-        else {
+        } else {
           const totalHalaman = 20;
-
-          nilai =
-            100 -
-            (
-              kesalahan *
-              2 *
-              totalHalaman
-            ) /
-              halaman;
-
-          materiRiwayat =
-            "Belum Genap 1 Juz — Selain Juz 30";
+          nilai = 100 - ((kesalahan * 2 * totalHalaman) / halaman);
+          materiRiwayat = "Belum Genap 1 Juz — Selain Juz 30";
 
           rumus = `
-            <div class="formula-title">
-              Nilai Ujian Per Juz
-            </div>
-
-            <div>
-              = 100 - ((${angka(kesalahan)} × 2 × 20) ÷ ${angka(halaman)})
-            </div>
-
-            <div>
-              = 100 - (${angka(kesalahan * 2 * totalHalaman)} ÷ ${angka(halaman)})
-            </div>
-
-            <div class="formula-result">
-              = ${fmt(nilai)}
-            </div>
+            <div class="formula-title">Nilai Ujian Per Juz</div>
+            <div>= 100 - ((${angka(kesalahan)} × 2 × 20) ÷ ${angka(halaman)})</div>
+            <div>= 100 - (${angka(kesalahan * 2 * totalHalaman)} ÷ ${angka(halaman)})</div>
+            <div class="formula-result">= ${fmt(nilai)}</div>
           `;
         }
       }
 
-      /*
-        SEMESTER TIDAK MENGHITUNG BOBOT
-      */
-
       tampilkanHasil({
-        labelNilai:
-          "Nilai Ujian Per Juz",
+        labelNilai: "Nilai Ujian Per Juz",
         nilai,
         bobot: null,
         rumus
@@ -2090,10 +1317,7 @@
 
       simpanRiwayat({
         id: createId(),
-        waktu:
-          new Date().toLocaleString(
-            "id-ID"
-          ),
+        waktu: new Date().toLocaleString("id-ID"),
         nama,
         ujian: "Ujian Semester",
         materi: materiRiwayat,
@@ -2105,188 +1329,95 @@
       });
     }
 
-    /*
-      ==========================================
-      TOMBOL HITUNG
-      ==========================================
-    */
-
     function hitung() {
-      const validation = validateForm(true);
+      state.validationAttempted = true;
+
+      const validation = validateAll();
 
       if (!validation.valid) {
-        validation.firstInvalid?.focus({ preventScroll: true });
-        validation.firstInvalid?.scrollIntoView({
-          behavior: "smooth",
-          block: "center"
-        });
+        resetResult();
+
+        if (validation.firstInvalid) {
+          requestAnimationFrame(() => {
+            validation.firstInvalid.scrollIntoView({
+              behavior: "smooth",
+              block: "center"
+            });
+            validation.firstInvalid.focus({ preventScroll: true });
+          });
+        }
         return;
       }
 
-      const jenis = els.jenis.value;
-
-      if (jenis === "bulanan") {
+      if (els.jenis.value === "bulanan") {
         hitungBulanan();
-        return;
-      }
-
-      if (jenis === "semester") {
+      } else if (els.jenis.value === "semester") {
         hitungSemester();
       }
     }
 
-    /*
-      ==========================================
-      RIWAYAT
-      ==========================================
-    */
-
     function createId() {
-      return (
-        Date.now() +
-        "-" +
-        Math.random()
-          .toString(36)
-          .slice(2, 9)
-      );
+      return Date.now() + "-" + Math.random().toString(36).slice(2, 9);
     }
 
     function ambilRiwayat() {
       try {
-        const data =
-          JSON.parse(
-            localStorage.getItem(
-              STORAGE_KEY
-            )
-          );
-
-        return Array.isArray(data)
-          ? data
-          : [];
+        const data = JSON.parse(localStorage.getItem(STORAGE_KEY));
+        return Array.isArray(data) ? data : [];
       } catch {
         return [];
       }
     }
 
     function simpanRiwayat(data) {
-      const riwayat =
-        ambilRiwayat();
-
+      const riwayat = ambilRiwayat();
       riwayat.unshift(data);
 
       localStorage.setItem(
         STORAGE_KEY,
-        JSON.stringify(
-          riwayat.slice(0, 200)
-        )
+        JSON.stringify(riwayat.slice(0, 200))
       );
 
       tampilkanRiwayat();
     }
 
-    /*
-      Membawa riwayat dari HTML lama
-      supaya upgrade tidak menghilangkan
-      data yang sudah ada di perangkat.
-    */
-
     function migrasiRiwayatLama() {
-      if (
-        localStorage.getItem(
-          STORAGE_KEY
-        )
-      ) {
-        return;
-      }
+      if (localStorage.getItem(STORAGE_KEY)) return;
 
       try {
-        const oldData =
-          JSON.parse(
-            localStorage.getItem(
-              OLD_STORAGE_KEY
-            )
-          );
+        const oldData = JSON.parse(localStorage.getItem(OLD_STORAGE_KEY));
 
-        if (
-          !Array.isArray(oldData) ||
-          oldData.length === 0
-        ) {
-          return;
-        }
+        if (!Array.isArray(oldData) || oldData.length === 0) return;
 
-        const migrated =
-          oldData.map(item => ({
-            id:
-              item.id ||
-              createId(),
+        const migrated = oldData.map(item => ({
+          id: item.id || createId(),
+          waktu: item.waktu || "-",
+          nama: item.nama || "-",
+          ujian: "Ujian Bulanan",
+          materi: item.jenis || "-",
+          kesalahan: Number(item.kesalahan) || 0,
+          halaman: item.halaman ?? null,
+          jumlahJuz: item.jumlahJuz ?? null,
+          nilai: Number(item.nilai) || 0,
+          bobot: item.bobot === null || item.bobot === undefined || item.bobot === ""
+            ? null
+            : Number(item.bobot)
+        }));
 
-            waktu:
-              item.waktu ||
-              "-",
-
-            nama:
-              item.nama ||
-              "-",
-
-            ujian:
-              "Ujian Bulanan",
-
-            materi:
-              item.jenis ||
-              "-",
-
-            kesalahan:
-              Number(
-                item.kesalahan
-              ) || 0,
-
-            halaman:
-              item.halaman ??
-              null,
-
-            jumlahJuz:
-              item.jumlahJuz ??
-              null,
-
-            nilai:
-              Number(
-                item.nilai
-              ) || 0,
-
-            bobot:
-              Number.isFinite(
-                Number(item.bobot)
-              )
-                ? Number(item.bobot)
-                : null
-          }));
-
-        localStorage.setItem(
-          STORAGE_KEY,
-          JSON.stringify(
-            migrated
-          )
-        );
-      } catch {
-        /*
-          Jika data lama tidak dapat dibaca,
-          aplikasi tetap berjalan normal.
-        */
-      }
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(migrated));
+      } catch {}
     }
 
     function tampilkanRiwayat() {
-      const riwayat =
-        ambilRiwayat();
+      const riwayat = ambilRiwayat();
 
       if (!riwayat.length) {
         els.history.innerHTML = `
           <div class="empty">
-            Belum ada riwayat.
+            Belum ada riwayat.<br>
             Hasil perhitungan nanti akan muncul di sini.
           </div>
         `;
-
         return;
       }
 
@@ -2305,86 +1436,37 @@
               <th></th>
             </tr>
           </thead>
-
           <tbody>
       `;
 
-            for (const item of riwayat) {
-        const ujianText =
+      for (const item of riwayat) {
+        const bobotText =
+          item.bobot === null || item.bobot === undefined || item.bobot === ""
+            ? "-"
+            : fmt(item.bobot);
+
+        const ujianSingkat =
           item.ujian === "Ujian Bulanan"
             ? "Bulanan"
             : item.ujian === "Ujian Semester"
               ? "Semester"
               : (item.ujian || "-");
 
-        const materiText = escapeHtml(item.materi || "-")
-          .replace(" — Selain Juz 30", "<br>Selain Juz 30")
-          .replace(" - Selain Juz 30", "<br>Selain Juz 30");
-
-        const bobotText =
-          Number.isFinite(
-            Number(item.bobot)
-          )
-            ? fmt(item.bobot)
-            : "-";
+        let materi = item.materi || "-";
+        materi = materi
+          .replace("Belum Genap 1 Juz — Juz 30", "Belum Genap 1 Juz")
+          .replace("Belum Genap 1 Juz — Selain Juz 30", "Selain Juz 30");
 
         html += `
           <tr>
-            <td>
-              ${escapeHtml(
-                item.nama
-              )}
-            </td>
-
-            <td>
-              ${escapeHtml(ujianText)}
-            </td>
-
-            <td>
-              ${materiText}
-            </td>
-
-            <td>
-              ${angka(
-                item.kesalahan ??
-                0
-              )}
-            </td>
-
-            <td>
-              ${
-                item.halaman !==
-                  null &&
-                item.halaman !==
-                  undefined
-                  ? angka(
-                      item.halaman
-                    )
-                  : "-"
-              }
-            </td>
-
-            <td>
-              ${
-                item.jumlahJuz !==
-                  null &&
-                item.jumlahJuz !==
-                  undefined
-                  ? angka(
-                      item.jumlahJuz
-                    )
-                  : "-"
-              }
-            </td>
-
-            <td>
-              ${fmt(item.nilai)}
-            </td>
-
-            <td>
-              ${bobotText}
-            </td>
-
+            <td>${escapeHtml(item.nama)}</td>
+            <td>${escapeHtml(ujianSingkat)}</td>
+            <td>${escapeHtml(materi)}</td>
+            <td>${angka(item.kesalahan ?? 0)}</td>
+            <td>${item.halaman !== null && item.halaman !== undefined ? angka(item.halaman) : "-"}</td>
+            <td>${item.jumlahJuz !== null && item.jumlahJuz !== undefined ? angka(item.jumlahJuz) : "-"}</td>
+            <td>${fmt(item.nilai)}</td>
+            <td>${bobotText}</td>
             <td>
               <button
                 class="delete-btn"
@@ -2392,308 +1474,172 @@
                 data-delete-id="${escapeHtml(item.id)}"
                 aria-label="Hapus riwayat"
                 title="Hapus"
-              >
-                ×
-              </button>
+              >×</button>
             </td>
           </tr>
         `;
       }
 
-      html += `
-          </tbody>
-        </table>
-      `;
-
-      els.history.innerHTML =
-        html;
+      html += "</tbody></table>";
+      els.history.innerHTML = html;
     }
 
     function hapusRiwayat(id) {
-      const riwayat =
-        ambilRiwayat()
-          .filter(
-            item =>
-              String(item.id) !==
-              String(id)
-          );
-
-      localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify(
-          riwayat
-        )
+      const riwayat = ambilRiwayat().filter(
+        item => String(item.id) !== String(id)
       );
 
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(riwayat));
       tampilkanRiwayat();
     }
 
     function hapusSemuaRiwayat() {
-      const riwayat =
-        ambilRiwayat();
+      const riwayat = ambilRiwayat();
+      if (!riwayat.length) return;
 
-      if (!riwayat.length) {
-        return;
+      if (confirm("Hapus semua riwayat perhitungan?")) {
+        localStorage.removeItem(STORAGE_KEY);
+        tampilkanRiwayat();
       }
-
-      const yakin =
-        confirm(
-          "Hapus semua riwayat perhitungan?"
-        );
-
-      if (!yakin) {
-        return;
-      }
-
-      localStorage.removeItem(
-        STORAGE_KEY
-      );
-
-      tampilkanRiwayat();
-    }
-
-    /*
-
-    
-      ==========================================
-      TEKS PENYEMANGAT
-      ==========================================
-    */
-
-    function renderEncouragement(
-      index,
-      animate = false
-    ) {
-      const item =
-        encouragements[index];
-
-      const target =
-        els.encouragementText;
-
-      if (animate) {
-        target.classList.remove(
-          "fade-in"
-        );
-
-        target.classList.add(
-          "fade-out"
-        );
-
-        window.setTimeout(
-          () => {
-            setEncouragementContent(
-              item
-            );
-
-            target.classList.remove(
-              "fade-out"
-            );
-
-            target.classList.add(
-              "fade-in"
-            );
-          },
-          800
-        );
-
-        return;
-      }
-
-      setEncouragementContent(
-        item
-      );
     }
 
     function setEncouragementContent(item) {
-  els.encouragementText.className =
-    `encouragement-text ${item.direction}`;
+      els.encouragementText.className =
+        `encouragement-text ${item.direction}`;
 
-  /*
-    Teks + emoji sengaja dibuat sebagai satu
-    inline content.
+      els.encouragementText.innerHTML = `
+        <span class="encouragement-message">
+          ${escapeHtml(item.text)}
+          <span class="encouragement-emoji" aria-hidden="true">${item.emoji}</span>
+        </span>
+      `;
+    }
 
-    Hasilnya:
-    "Semoga ini menjadi amal yang terus mengalir
-     hingga anak² dewasa, aamiin. 🌸"
+    function renderEncouragement(index, animate = false) {
+      const item = encouragements[index];
+      const target = els.encouragementText;
 
-    Kalau kalimat turun baris, emoji tetap
-    mengikuti ujung kalimat dan tidak terpisah.
-  */
-  els.encouragementText.innerHTML = `
-    <span class="encouragement-message">
-      ${escapeHtml(item.text)}
-      <span
-        class="encouragement-emoji"
-        aria-hidden="true"
-      >${item.emoji}</span>
-    </span>
-  `;
+      if (!animate) {
+        setEncouragementContent(item);
+        return;
+      }
+
+      target.classList.remove("fade-in");
+      target.classList.add("fade-out");
+
+      window.setTimeout(() => {
+        setEncouragementContent(item);
+        target.classList.remove("fade-out");
+        target.classList.add("fade-in");
+      }, 800);
     }
 
     function mulaiPesanPenyemangat() {
-      if (
-        state.encouragementTimer
-      ) {
-        clearInterval(
-          state.encouragementTimer
-        );
+      if (state.encouragementTimer) {
+        clearInterval(state.encouragementTimer);
       }
 
       state.encouragementIndex = 0;
+      renderEncouragement(0, false);
 
-      renderEncouragement(
-        0,
-        false
-      );
+      state.encouragementTimer = window.setInterval(() => {
+        state.encouragementIndex =
+          (state.encouragementIndex + 1) % encouragements.length;
 
-      /*
-        Timing:
-        ±10 detik tampil
-        0,8 detik fade out
-        ganti teks
-        0,8 detik fade in
-
-        Pergantian dimulai sekitar
-        setiap 11,6 detik.
-      */
-
-      state.encouragementTimer =
-        window.setInterval(
-          () => {
-            state.encouragementIndex =
-              (
-                state.encouragementIndex +
-                1
-              ) %
-              encouragements.length;
-
-            renderEncouragement(
-              state.encouragementIndex,
-              true
-            );
-          },
-          11600
-        );
+        renderEncouragement(state.encouragementIndex, true);
+      }, 11600);
     }
 
-    /*
+    function clearErrorAsUserEdits(id) {
+      if (!state.validationAttempted) return;
+      const value = getElementValue(id);
 
-     ==========================================
-      EVENT
-      ==========================================
-    */
+      if (id === "nama" && value) clearError(id);
+      if (id === "jenis" && value) clearError(id);
 
-    els.jenis.addEventListener(
-      "change",
-      () => {
-        renderForm();
-        updateCalculateButtonState();
-        window.setTimeout(attachInlineValidation, 0);
+      if (id === "kesalahan") {
+        const n = getNumber(id);
+        if (value !== "" && Number.isFinite(n) && n >= 0) clearError(id);
       }
-    );
 
-    els.dynamicForm.addEventListener("change", () => {
-      updateCalculateButtonState();
-      window.setTimeout(attachInlineValidation, 0);
-    });
-
-    els.dynamicForm.addEventListener("input", updateCalculateButtonState);
-
-    els.hitungBtn.addEventListener(
-      "click",
-      hitung
-    );
-
-    els.hapusSemuaBtn.addEventListener(
-      "click",
-      hapusSemuaRiwayat
-    );
-
-    els.history.addEventListener(
-      "click",
-      event => {
-        const button =
-          event.target.closest(
-            "[data-delete-id]"
-          );
-
-        if (!button) {
-          return;
-        }
-
-        hapusRiwayat(
-          button.dataset.deleteId
-        );
+      if (id === "halaman") {
+        const n = getNumber(id);
+        if (value !== "" && Number.isFinite(n) && n > 0) clearError(id);
       }
-    );
 
-    document
-      .getElementById("hapusNamaBtn")
-      .addEventListener(
-        "click",
-        () => {
-          els.nama.value = "";
-          if (els.nama.closest(".field")?.classList.contains("field-error")) {
-            validateField("nama", true);
-          }
-          updateCalculateButtonState();
-          els.nama.focus();
-        }
-      );
+      if (id === "jumlahJuz") {
+        const n = getNumber(id);
+        if (value !== "" && Number.isInteger(n) && n >= 1 && n <= 5) clearError(id);
+      }
+
+      if (id === "materiBulanan" && value) clearError(id);
+      if (id === "materiSemester" && value) clearError(id);
+      if (id === "semesterGenap" && value) clearError(id);
+    }
 
     els.nama.addEventListener("input", () => {
-      if (els.nama.closest(".field")?.classList.contains("field-error")) {
-        validateField("nama", true);
-      }
-      updateCalculateButtonState();
+      updateCalculateButton();
+      clearErrorAsUserEdits("nama");
     });
 
-    els.nama.addEventListener(
-      "keydown",
-      event => {
-        if (
-          event.key === "Enter"
-        ) {
-          event.preventDefault();
-          els.jenis.focus();
-        }
+    els.jenis.addEventListener("change", () => {
+      renderForm();
+      updateCalculateButton();
+    });
+
+    els.clearNameBtn.addEventListener("click", () => {
+      els.nama.value = "";
+      els.nama.focus();
+      updateCalculateButton();
+
+      if (state.validationAttempted) {
+        setError("nama", "Namanya belum diisi nih.");
       }
-    );
+    });
 
-    /*
+    els.hitungBtn.addEventListener("click", hitung);
 
-     ==========================================
-      INITIALIZATION
-      ==========================================
-    */
+    els.hapusSemuaBtn.addEventListener("click", hapusSemuaRiwayat);
 
-        migrasiRiwayatLama();
+    els.history.addEventListener("click", event => {
+      const button = event.target.closest("[data-delete-id]");
+      if (!button) return;
+      hapusRiwayat(button.dataset.deleteId);
+    });
+
+    els.nama.addEventListener("keydown", event => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        els.jenis.focus();
+      }
+    });
+
+    document.addEventListener("input", event => {
+      if (event.target.matches("#dynamicForm input, #dynamicForm select")) {
+        updateCalculateButton();
+        clearErrorAsUserEdits(event.target.id);
+      }
+    });
+
+    document.addEventListener("change", event => {
+      if (event.target.matches("#dynamicForm input, #dynamicForm select")) {
+        updateCalculateButton();
+        clearErrorAsUserEdits(event.target.id);
+      }
+    });
+
+    migrasiRiwayatLama();
     tampilkanRiwayat();
     mulaiPesanPenyemangat();
-    attachInlineValidation();
-    updateCalculateButtonState();
-
-    /*
-      ==========================================
-      SERVICE WORKER / PWA
-      ==========================================
-    */
+    updateCalculateButton();
 
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
-        navigator.serviceWorker
-          .register("./sw.js", {
-            scope: "./"
-          })
-          .catch((error) => {
-            console.error(
-              "Service Worker gagal didaftarkan:",
-              error
-            );
-          });
+        navigator.serviceWorker.register("./sw.js", { scope: "./" }).catch(error => {
+          console.error("Service Worker gagal didaftarkan:", error);
+        });
       });
     }
   </script>
-
 </body>
 </html>
