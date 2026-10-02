@@ -1,6 +1,6 @@
 "use strict";
 
-const CACHE_NAME = "kalkulator-hifzh-v3";
+const CACHE_NAME = "kalkulator-hifzh-v4";
 
 const APP_SHELL = [
   "./",
