@@ -57,34 +57,83 @@
       flex-direction: column;
     }
 
-    /* Kaligrafi abstrak samar di sudut */
+    /* ================================
+   DEKORASI KHAT KALIGRAFI ABSTRAK
+   ================================ */
+
 body::before,
 body::after {
   content: "";
   position: fixed;
   z-index: 0;
   pointer-events: none;
-  width: 230px;
-  height: 230px;
-  opacity: 0.10;
+
+  width: 270px;
+  height: 270px;
+
   background-repeat: no-repeat;
   background-size: contain;
+
+  opacity: 0.10;
 }
 
+/* Khat pojok kanan atas */
 body::before {
   top: -35px;
   right: -35px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 260 260'%3E%3Cg fill='none' stroke='%238fa9b5' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M35 65 C80 30 125 55 105 95 C90 125 135 145 185 105 C215 80 220 45 195 30'/%3E%3Cpath d='M65 145 C95 110 120 115 140 145 C160 175 190 170 220 135'/%3E%3Cpath d='M120 25 C115 70 125 90 155 100'/%3E%3Cpath d='M45 185 C75 165 95 175 105 205'/%3E%3C/g%3E%3Cg fill='%238fa9b5'%3E%3Ccircle cx='72' cy='48' r='4'/%3E%3Ccircle cx='178' cy='125' r='3'/%3E%3Ccircle cx='130' cy='185' r='3'/%3E%3C/g%3E%3C/svg%3E");
-  transform: rotate(-8deg);
+
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 300'%3E%3Cg fill='%238fa9b5'%3E%3Cpath d='M45 82 C62 58 91 43 121 50 C139 54 146 68 136 81 C125 95 98 100 82 113 C67 126 73 144 96 147 C122 150 147 132 160 111 C171 93 181 72 204 67 C225 62 242 75 238 91 C234 108 216 119 197 122 C178 125 164 139 171 155 C178 172 201 178 219 169 C235 161 248 145 259 126 L273 136 C261 161 244 181 220 190 C193 201 165 193 154 175 C145 160 150 144 162 131 C148 151 125 169 99 172 C72 175 52 162 49 143 C46 124 58 110 75 99 C88 90 103 85 108 76 C111 69 103 65 94 66 C76 68 61 80 52 96 Z'/%3E%3Cpath d='M111 42 C119 30 132 24 146 28 C158 31 160 40 153 49 C146 57 135 60 126 56 C118 53 112 48 111 42 Z'/%3E%3Cpath d='M184 48 C191 31 205 20 219 22 C230 24 234 34 229 43 C224 53 213 60 201 61 C191 61 184 56 184 48 Z'/%3E%3Cpath d='M61 191 C80 181 101 184 111 197 C121 210 117 224 105 232 C92 241 75 238 65 227 C56 216 54 202 61 191 Z'/%3E%3Cpath d='M133 196 C151 187 171 191 180 205 C189 219 184 234 171 241 C158 248 140 243 133 231 C126 220 126 204 133 196 Z'/%3E%3Ccircle cx='55' cy='61' r='5'/%3E%3Ccircle cx='176' cy='82' r='4'/%3E%3Ccircle cx='228' cy='113' r='4'/%3E%3Ccircle cx='119' cy='183' r='3'/%3E%3C/g%3E%3C/svg%3E");
+
+  -webkit-mask-image:
+    radial-gradient(
+      circle at 100% 0%,
+      black 0%,
+      rgba(0,0,0,.85) 28%,
+      rgba(0,0,0,.45) 52%,
+      transparent 82%
+    );
+  mask-image:
+    radial-gradient(
+      circle at 100% 0%,
+      black 0%,
+      rgba(0,0,0,.85) 28%,
+      rgba(0,0,0,.45) 52%,
+      transparent 82%
+    );
+
+  transform: rotate(-7deg);
 }
 
+
+/* Khat pojok kiri bawah */
 body::after {
   bottom: -45px;
   left: -40px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 260 260'%3E%3Cg fill='none' stroke='%238fa9b5' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M25 175 C65 210 105 195 100 155 C95 120 135 100 175 125 C205 145 220 115 205 80'/%3E%3Cpath d='M40 105 C70 80 95 85 115 115 C135 145 165 150 210 120'/%3E%3Cpath d='M85 225 C90 180 115 165 145 180'/%3E%3Cpath d='M145 45 C135 75 150 95 185 100'/%3E%3C/g%3E%3Cg fill='%238fa9b5'%3E%3Ccircle cx='55' cy='92' r='3'/%3E%3Ccircle cx='165' cy='65' r='4'/%3E%3Ccircle cx='195' cy='145' r='3'/%3E%3C/g%3E%3C/svg%3E");
-  transform: rotate(10deg);
+
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 300'%3E%3Cg fill='%238fa9b5'%3E%3Cpath d='M35 202 C55 181 78 168 101 174 C118 178 125 192 118 205 C111 218 92 226 78 235 C65 244 68 258 87 260 C109 262 129 246 140 228 C150 211 158 190 180 184 C201 178 219 189 217 204 C215 219 198 229 181 232 C164 235 151 247 157 261 C164 276 185 282 202 275 C221 267 236 250 248 229 L263 238 C249 263 231 284 207 294 C181 304 154 296 144 280 C136 267 139 251 150 239 C136 256 115 272 93 276 C68 280 48 268 44 250 C40 234 50 222 66 212 C78 204 92 198 96 189 C99 183 92 179 83 180 C66 182 52 194 42 210 Z'/%3E%3Cpath d='M96 157 C103 143 116 136 130 139 C141 142 145 151 139 160 C133 169 122 173 112 170 C102 168 96 164 96 157 Z'/%3E%3Cpath d='M174 154 C181 138 194 129 207 132 C219 135 223 145 217 155 C211 165 199 170 188 168 C178 166 173 161 174 154 Z'/%3E%3Cpath d='M39 116 C56 106 75 109 84 121 C93 133 88 147 77 154 C64 162 48 157 41 146 C34 135 32 123 39 116 Z'/%3E%3Cpath d='M116 112 C133 102 152 106 160 119 C168 132 163 145 151 151 C138 158 122 153 116 142 C110 131 110 119 116 112 Z'/%3E%3Ccircle cx='35' cy='184' r='5'/%3E%3Ccircle cx='151' cy='174' r='4'/%3E%3Ccircle cx='226' cy='211' r='4'/%3E%3Ccircle cx='102' cy='103' r='3'/%3E%3C/g%3E%3C/svg%3E");
+
+  -webkit-mask-image:
+    radial-gradient(
+      circle at 0% 100%,
+      black 0%,
+      rgba(0,0,0,.85) 28%,
+      rgba(0,0,0,.45) 52%,
+      transparent 82%
+    );
+  mask-image:
+    radial-gradient(
+      circle at 0% 100%,
+      black 0%,
+      rgba(0,0,0,.85) 28%,
+      rgba(0,0,0,.45) 52%,
+      transparent 82%
+    );
+
+  transform: rotate(8deg);
 }
 
+
+/* Isi halaman tetap berada di atas dekorasi */
 .container,
 .footer {
   position: relative;
