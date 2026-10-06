@@ -57,11 +57,7 @@
       flex-direction: column;
     }
 
-/* =========================================================
-   DEKORASI BATIK MEGA MENDUNG
-   Outline saja, tanpa fill
-   ========================================================= */
-
+/* Dekorasi Mega Mendung dari SVG */
 body::before,
 body::after {
   content: "";
@@ -69,76 +65,72 @@ body::after {
   z-index: 0;
   pointer-events: none;
 
-  width: 330px;
-  height: 330px;
+  width: 360px;
+  height: 300px;
 
+  background-image: url("./q87mF01.svg");
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: 155%;
+  
+  opacity: 0.10;
 
-  opacity: 0.13;
+  filter:
+    saturate(55%)
+    brightness(1.08)
+    contrast(85%);
 }
 
-/* =========================
-   MEGA MENDUNG KANAN ATAS
-   ========================= */
-
+/* Pojok kanan atas */
 body::before {
-  top: -45px;
-  right: -55px;
+  top: -55px;
+  right: -75px;
 
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 360 360'%3E%3Cg fill='none' stroke='%236d91aa' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M285 15 C258 19 240 31 232 48 C225 63 230 76 245 83 C221 83 201 92 193 107 C184 123 192 137 211 143 C185 146 165 158 160 175 C155 192 168 204 188 208 C163 214 147 228 147 244 C147 260 161 270 180 273'/%3E%3Cpath d='M326 48 C304 48 288 57 282 69 C276 81 282 92 295 97 C276 99 261 108 256 120 C251 132 259 142 274 146 C254 150 242 160 240 172 C238 185 248 193 263 196'/%3E%3Cpath d='M247 102 C231 105 220 113 217 123 C214 133 221 141 232 144 C217 148 207 156 207 166 C207 176 216 183 229 184'/%3E%3Cpath d='M303 126 C287 129 277 137 275 147 C273 157 281 164 293 166 C279 170 270 178 270 188 C271 198 280 204 292 205'/%3E%3Cpath d='M206 178 C191 182 182 190 182 200 C182 210 191 217 203 218 C190 222 182 231 183 241 C184 251 194 257 207 257'/%3E%3Cpath d='M337 185 C323 187 314 194 313 204 C312 213 320 220 331 221 C319 225 312 233 313 242 C314 251 322 257 334 258'/%3E%3Cpath d='M260 244 C247 247 239 254 239 263 C239 272 247 278 258 280'/%3E%3C/g%3E%3C/svg%3E");
+  background-position: 70% 25%;
 
   -webkit-mask-image:
     radial-gradient(
-      circle at 100% 0%,
+      ellipse at 100% 0%,
       black 0%,
-      rgba(0,0,0,.92) 25%,
-      rgba(0,0,0,.55) 48%,
+      rgba(0,0,0,.92) 28%,
+      rgba(0,0,0,.55) 52%,
       transparent 82%
     );
   mask-image:
     radial-gradient(
-      circle at 100% 0%,
+      ellipse at 100% 0%,
       black 0%,
-      rgba(0,0,0,.92) 25%,
-      rgba(0,0,0,.55) 48%,
+      rgba(0,0,0,.92) 28%,
+      rgba(0,0,0,.55) 52%,
       transparent 82%
     );
-
-  transform: none;
 }
 
-
-/* =========================
-   MEGA MENDUNG KIRI BAWAH
-   ========================= */
-
+/* Pojok kiri bawah */
 body::after {
-  left: -55px;
-  bottom: -50px;
+  left: -75px;
+  bottom: -55px;
 
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 360 360'%3E%3Cg fill='none' stroke='%236d91aa' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M75 345 C100 339 116 326 121 310 C126 295 118 283 103 278 C126 276 145 266 152 251 C159 236 151 223 133 218 C158 214 177 202 181 186 C185 170 172 158 153 154 C178 148 193 135 193 120 C193 105 180 95 161 92'/%3E%3Cpath d='M28 310 C48 307 62 297 66 285 C70 273 63 263 51 259 C68 257 82 248 87 237 C92 226 84 216 70 212 C89 209 101 199 102 188 C103 177 94 169 80 166'/%3E%3Cpath d='M132 280 C149 277 160 268 162 258 C164 248 157 241 146 238 C161 235 171 227 171 217 C171 207 163 201 150 198'/%3E%3Cpath d='M70 220 C85 217 95 209 96 199 C97 189 90 182 79 180 C93 176 101 168 101 159 C101 150 94 144 82 142'/%3E%3Cpath d='M181 238 C195 235 204 228 205 218 C206 209 199 202 188 200 C201 196 209 189 209 180 C209 171 202 165 191 163'/%3E%3Cpath d='M21 175 C35 172 44 165 45 156 C46 147 40 140 29 138 C41 134 48 127 48 118 C48 109 41 103 31 101'/%3E%3Cpath d='M110 132 C123 129 131 122 131 114 C131 106 125 100 115 98 C127 94 134 88 134 80 C134 72 128 67 118 65'/%3E%3C/g%3E%3C/svg%3E");
-
-  -webkit-mask-image:
-    radial-gradient(
-      circle at 0% 100%,
-      black 0%,
-      rgba(0,0,0,.9) 25%,
-      rgba(0,0,0,.5) 48%,
-      transparent 82%
-    );
-  mask-image:
-    radial-gradient(
-      circle at 0% 100%,
-      black 0%,
-      rgba(0,0,0,.9) 25%,
-      rgba(0,0,0,.5) 48%,
-      transparent 82%
-    );
+  background-position: 30% 75%;
 
   transform: scaleX(-1);
-}
 
+  -webkit-mask-image:
+    radial-gradient(
+      ellipse at 0% 100%,
+      black 0%,
+      rgba(0,0,0,.90) 28%,
+      rgba(0,0,0,.50) 52%,
+      transparent 82%
+    );
+  mask-image:
+    radial-gradient(
+      ellipse at 0% 100%,
+      black 0%,
+      rgba(0,0,0,.90) 28%,
+      rgba(0,0,0,.50) 52%,
+      transparent 82%
+    );
+}
 
 /* Konten tetap di atas ornamen */
 .container,
